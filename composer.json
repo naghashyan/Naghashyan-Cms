@@ -1,0 +1,26 @@
+{
+  "name": "naghashyan/ngs-php-cms",
+  "type": "library",
+  "description": "The Naghashyan PHP framework",
+  "keywords": [
+    "framework",
+    "csm"
+  ],
+  "homepage": "https://ngsframework.com",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Naghashyan Solutions LLC",
+      "email": "info@naghashyan.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.0",
+    "naghashyan/ngs-php-framework": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ngs\\": "src/"
+    }
+  }
+}
