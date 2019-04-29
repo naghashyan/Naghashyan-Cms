@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "ngs\\": "src/"
+      "ngs\\cms\\": "src/"
     }
   }
 }
