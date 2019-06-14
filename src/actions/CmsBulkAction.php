@@ -13,7 +13,7 @@
  *
  */
 
-namespace nsg\cms\actions {
+namespace ngs\cms\actions {
 
   use ngs\request\AbstractAction;
 

@@ -13,11 +13,11 @@
 
 namespace ngs\cms\loads {
 
+  use ngs\cms\dal\binparams\NgsCmsParamsBin;
   use ngs\cms\dal\dto\AbstractCmsDto;
   use ngs\cms\managers\AbstractCmsManager;
-  use ngs\request\AbstractLoad;
 
-  abstract class AbstractCmsListLoad extends AbstractLoad {
+  abstract class AbstractCmsListLoad extends AbstractCmsLoad {
 
     protected $im_limit = 15;
     protected $im_pagesShowed = 12;
@@ -93,15 +93,9 @@ namespace ngs\cms\loads {
       $this->beforeLoad();
       $manager = $this->getManager();
       $this->initializeVisibleFieldsMethods($manager->createDto());
-      NGS()->args()->ordering = NGS()->args()->ordering ? NGS()->args()->ordering : "DESC";
-      NGS()->args()->sorting = NGS()->args()->sorting ? NGS()->args()->sorting : "id";
-      NGS()->args()->artistId = NGS()->args()->artistId ? NGS()->args()->artistId : null;
-      $whereCondition = $this->getNgsWhereCondition();
-      $joinCondition = $this->getJoinCondition();
-
-      $itemDtos = $manager->getList(NGS()->args()->sorting, NGS()->args()->ordering, $this->getLimit(),
-        $this->getOffset(), NGS()->args()->artistId, $whereCondition, $joinCondition);
-      $itemsCount = $manager->getItemsCount($whereCondition, $joinCondition);
+      $paramsBin = $this->getNgsListBinParams();
+      $itemDtos = $manager->getList($paramsBin);
+      $itemsCount = $manager->getItemsCount($paramsBin);
       $this->addParam("itemDtos", $itemDtos);
       $this->addParam("visibleFields", $this->getVisibleFieldsMethods());
       $this->addParam("actions", $this->getCmsActions());
@@ -123,7 +117,43 @@ namespace ngs\cms\loads {
 
       $this->initPaging($itemsCount);
 
-      $this->afterLoad($itemDtos, $itemsCount);
+      $this->afterCmsLoad($itemDtos, $itemsCount);
+    }
+
+    /**
+     *
+     * set default list params bin
+     *
+     * @return NgsCmsParamsBin
+     */
+
+    private function getNgsListBinParams(): NgsCmsParamsBin {
+      NGS()->args()->ordering = NGS()->args()->ordering ? NGS()->args()->ordering : "DESC";
+      NGS()->args()->sorting = NGS()->args()->sorting ? NGS()->args()->sorting : "id";
+      NGS()->args()->artistId = NGS()->args()->artistId ? NGS()->args()->artistId : null;
+      $whereCondition = $this->getNgsWhereCondition();
+      $joinCondition = $this->getJoinCondition();
+      $paramsBin = new NgsCmsParamsBin();
+      $paramsBin->setSortBy(NGS()->args()->sorting);
+      $paramsBin->setOrderBy(NGS()->args()->ordering);
+      $paramsBin->setLimit($this->getLimit());
+      $paramsBin->setOffset($this->getOffset());
+      $paramsBin->setWhereCondition($whereCondition);
+      $paramsBin->setJoinCondition($joinCondition);
+      $paramsBin = $this->modifyNgsListBinParams($paramsBin);
+      return $paramsBin;
+    }
+
+    /**
+     *
+     * modify already set params
+     *
+     * @param NgsCmsParamsBin $paramsBin
+     * @return NgsCmsParamsBin
+     */
+
+    protected function modifyNgsListBinParams(NgsCmsParamsBin $paramsBin): NgsCmsParamsBin {
+      return $paramsBin;
     }
 
     private function addSortingParams() {
@@ -135,7 +165,7 @@ namespace ngs\cms\loads {
     }
 
 
-    public abstract function getManager();
+    public abstract function getManager(): AbstractCmsManager;
 
     private function getNgsWhereCondition(): string {
       if ($this->getWhereCondition() != ""){
@@ -152,7 +182,7 @@ namespace ngs\cms\loads {
       return "";
     }
 
-    protected function afterLoad($itemDtos, $itemsCount): void {
+    protected function afterCmsLoad($itemDtos, $itemsCount): void {
 
 
     }

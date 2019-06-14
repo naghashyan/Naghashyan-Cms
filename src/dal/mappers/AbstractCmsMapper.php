@@ -12,35 +12,37 @@
  * @version 7.0
  *
  */
-namespace nsg\cms\dal\mappers {
 
+namespace ngs\cms\dal\mappers {
+
+  use ngs\cms\dal\binparams\NgsCmsParamsBin;
   use ngs\dal\mappers\AbstractMysqlMapper;
 
   abstract class AbstractCmsMapper extends AbstractMysqlMapper {
 
-		public function __construct() {
-			// Initialize the dbmc pointer.
-			AbstractMysqlMapper::__construct();
-		}
+    public function __construct() {
+      // Initialize the dbmc pointer.
+      AbstractMysqlMapper::__construct();
+    }
 
     /**
      * @var string
      */
-		public $tableName;
+    public $tableName;
 
-		/**
-		 * @see AbstractMysqlMapper::getPKFieldName()
-		 */
-		public function getPKFieldName() {
-			return "id";
-		}
+    /**
+     * @see AbstractMysqlMapper::getPKFieldName()
+     */
+    public function getPKFieldName() {
+      return "id";
+    }
 
-		/**
-		 * @see AbstractMysqlMapper::getTableName()
-		 */
-		public function getTableName() {
-			return $this->tableName;
-		}
+    /**
+     * @see AbstractMysqlMapper::getTableName()
+     */
+    public function getTableName() {
+      return $this->tableName;
+    }
 
 
     /**
@@ -48,7 +50,7 @@ namespace nsg\cms\dal\mappers {
      */
     private $DELETE_ITEM_BY_ID = "DELETE FROM %s WHERE `id`=:itemId";
 
-		public function deleteItemById($itemId) {
+    public function deleteItemById($itemId) {
       $sqlQuery = sprintf($this->DELETE_ITEM_BY_ID, $this->getTableName());
       $res = $this->executeUpdate($sqlQuery, ["itemId" => $itemId]);
       if (is_numeric($res)){
@@ -63,28 +65,20 @@ namespace nsg\cms\dal\mappers {
     private $GET_LIST = "SELECT %s.* FROM %s %s %s %s LIMIT :offset, :limit";
 
     /**
-     * @param string $sortBy
-     * @param string $orderBy
-     * @param int $limit
-     * @param int $offset
-     * @param int|null $registrationId
-     * @param string $whereCondition
-     * @param string $joinCondition
+     * @param NgsCmsParamsBin $paramsBin
      * @return array|null
      */
-    public function getList(string $sortBy = "id", string $orderBy = "DESC", int $limit = 1000,
-                            int $offset = 0, int $registrationId = null, string $whereCondition = "", string $joinCondition = "") {
+    public function getList(NgsCmsParamsBin $paramsBin) {
       $bindArray = array();
-      $bindArray['offset'] = (int)$offset;
-      $bindArray['limit'] = (int)$limit;
+      $bindArray['offset'] = (int)$paramsBin->getOffset();
+      $bindArray['limit'] = (int)$paramsBin->getLimit();
 
-      $orderBySql = $orderBy;
+      $orderBySql = $paramsBin->getOrderBy();
 
-      $sortBySql = $this->getTableName() . "." . $sortBy;
-
+      $sortBySql = $this->getTableName() . "." . $paramsBin->getSortBy();
       $sortBySql = " ORDER BY " . $sortBySql . ' ' . $orderBySql;
-
-      $sqlQuery = sprintf($this->GET_LIST, $this->getTableName(), $this->getTableName(), $joinCondition, $whereCondition, $sortBySql);
+      $sqlQuery = sprintf($this->GET_LIST, $this->getTableName(), $this->getTableName(),
+        $paramsBin->getJoinCondition(), $paramsBin->getWhereCondition(), $sortBySql);
       return $this->fetchRows($sqlQuery, $bindArray);
     }
 
@@ -110,20 +104,14 @@ namespace nsg\cms\dal\mappers {
     private $GET_COUNT = "SELECT COUNT(*) AS count FROM %s %s %s";
 
     /**
-     * @param $whereCondition
-     * @param $joinCondition
-     * @return string
+     * @param NgsCmsParamsBin $paramsBin
+     *
+     * @return int
      */
-    public function getItemsCount($whereCondition = null, $joinCondition = null) {
-      $bindArray = array();
-      if (!$whereCondition){
-        $whereCondition = "";
-      }
-      if (!$joinCondition){
-        $joinCondition = "";
-      }
-      $sqlQuery = sprintf($this->GET_COUNT, $this->getTableName(), $joinCondition, $whereCondition);
-      return $this->fetchField($sqlQuery, 'count', $bindArray);
+    public function getItemsCount(NgsCmsParamsBin $paramsBin): int {
+      $sqlQuery = sprintf($this->GET_COUNT, $this->getTableName(),
+        $paramsBin->getJoinCondition(), $paramsBin->getWhereCondition());
+      return $this->fetchField($sqlQuery, 'count', []);
     }
 
   }

@@ -9,7 +9,7 @@
  *
  */
 
-namespace nsg\cms\dal\dto {
+namespace ngs\cms\dal\dto {
 
   use ngs\dal\dto\AbstractDto;
 

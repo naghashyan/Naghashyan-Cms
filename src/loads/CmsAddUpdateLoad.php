@@ -13,9 +13,8 @@
 
 namespace ngs\cms\loads {
 
-  use ngs\request\AbstractLoad;
 
-  abstract class CmsAddUpdateLoad extends AbstractLoad {
+  abstract class CmsAddUpdateLoad extends AbstractCmsLoad {
 
 
     /**
@@ -109,7 +108,7 @@ namespace ngs\cms\loads {
       $this->addJsonParam("editActionType", $editActionType);
       $this->addParam("itemDto", $itemDto);
       $this->addParam("possibleValues", $this->getPossibleValuesForSelects($itemDto));
-      $this->afterLoad($itemDto);
+      $this->afterCmsLoad($itemDto);
     }
 
     /**
@@ -117,7 +116,7 @@ namespace ngs\cms\loads {
      *
      * @param $itemDto
      */
-    public function afterLoad($itemDto) {
+    public function afterCmsLoad($itemDto) {
 
     }
 

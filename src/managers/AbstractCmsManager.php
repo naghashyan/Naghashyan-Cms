@@ -11,11 +11,12 @@
  *
  */
 
-namespace nsg\cms\managers {
+namespace ngs\cms\managers {
 
   use ngs\AbstractManager;
-  use nsg\cms\dal\dto\AbstractCmsDto;
-  use nsg\cms\dal\mappers\AbstractCmsMapper;
+  use ngs\cms\dal\binparams\NgsCmsParamsBin;
+  use ngs\cms\dal\dto\AbstractCmsDto;
+  use ngs\cms\dal\mappers\AbstractCmsMapper;
 
   abstract class AbstractCmsManager extends AbstractManager {
 
@@ -34,7 +35,7 @@ namespace nsg\cms\managers {
 
     /**
      * @param array $params
-     * @return mixed
+     * @return AbstractCmsDto
      */
     public function createItem(array $params) {
       $itemDto = $this->getMapper()->createDto();
@@ -60,16 +61,17 @@ namespace nsg\cms\managers {
 
 
     /**
-     * @param string $orderBy
-     * @param string $sortBy
-     * @param int $limit
-     * @param int $offset
-     * @param int $registrationId
+     * NgsCmsParamsBin $paramsBin
+     *
      * @return AbstractCmsDto[]
      */
-    public function getList(string $orderBy = "id", string $sortBy = "DESC", int $limit = 1000,
-                            int $offset = 0, int $registrationId = null, $whereCondition = "", $joinCondition = "") {
-      return $this->getMapper()->getList($orderBy, $sortBy, $limit, $offset, $registrationId, $whereCondition, $joinCondition);
+    public function getList(NgsCmsParamsBin $paramsBin = null) {
+
+      if($paramsBin === null){
+        $paramsBin = new NgsCmsParamsBin();
+      }
+
+      return $this->getMapper()->getList($paramsBin);
     }
 
     public function deleteItemById($itemId) {
@@ -85,7 +87,9 @@ namespace nsg\cms\managers {
       return $this->getMapper()->getItemById($itemId);
     }
 
-
+    /**
+     * @return AbstractCmsMapper
+     */
     public abstract function getMapper();
 
     public function createDto() {
@@ -95,14 +99,16 @@ namespace nsg\cms\managers {
     /**
      * get all items count
      *
-     * @param $whereCondition
-     * @param $joinCondition
+     * @param NgsCmsParamsBin $paramsBin
      *
      * @return int
      */
-    public function getItemsCount($whereCondition = null, $joinCondition = null): int {
-      return $this->getMapper()->getItemsCount($whereCondition, $joinCondition);
+    public function getItemsCount(NgsCmsParamsBin $paramsBin): int {
+      return $this->getMapper()->getItemsCount($paramsBin);
     }
+
+
+
 
   }
 

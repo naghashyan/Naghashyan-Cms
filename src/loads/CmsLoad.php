@@ -13,9 +13,8 @@
 
 namespace ngs\cms\loads {
 
-  use ngs\request\AbstractLoad;
 
-  abstract class CmsLoad extends AbstractLoad {
+  abstract class CmsLoad extends AbstractCmsLoad {
 
 
     public function getTemplate() {
@@ -99,20 +98,16 @@ namespace ngs\cms\loads {
      */
     public abstract function getParentSections(): array;
 
-    public function getRequestGroup() {
-      return RequestGroups::$guestRequest;
-    }
-
     public final function load() {
       $this->addParam("parentSections", $this->getParentSections());
       $this->addParam("sectionName", $this->getSectionName());
       $this->addJsonParam("addLoad", $this->getAddLoad());
       $this->addJsonParam("mainLoad", $this->getMainLoad());
 
-      $this->afterLoad();
+      $this->afterCmsLoad();
     }
 
-    public function afterLoad() {
+    public function afterCmsLoad() {
 
     }
 

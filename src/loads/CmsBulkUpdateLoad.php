@@ -13,10 +13,9 @@
 
 namespace ngs\cms\loads {
 
-  use ngs\request\AbstractLoad;
   use ngs\exceptions\NgsErrorException;
 
-  abstract class CmsBulkUpdateLoad extends AbstractLoad {
+  abstract class CmsBulkUpdateLoad extends AbstractCmsLoad {
 
 
     const NGS_CMS_EDIT_ACTION_TYPE_POPUP = "popup";
@@ -58,7 +57,7 @@ namespace ngs\cms\loads {
 
       $this->addJsonParam("saveAction", $this->getSaveAction());
 
-      $this->afterLoad();
+      $this->afterCmsLoad();
     }
 
     public abstract function getCancelLoad(): string;
@@ -68,7 +67,7 @@ namespace ngs\cms\loads {
     /**
      * called after load
      */
-    public function afterLoad() {
+    public function afterCmsLoad() {
 
     }
 
