@@ -67,7 +67,7 @@ namespace ngs\cms\managers {
      */
     public function getList(NgsCmsParamsBin $paramsBin = null) {
 
-      if($paramsBin === null){
+      if ($paramsBin === null){
         $paramsBin = new NgsCmsParamsBin();
       }
 
@@ -106,8 +106,6 @@ namespace ngs\cms\managers {
     public function getItemsCount(NgsCmsParamsBin $paramsBin): int {
       return $this->getMapper()->getItemsCount($paramsBin);
     }
-
-
 
 
   }

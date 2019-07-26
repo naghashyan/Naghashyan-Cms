@@ -38,8 +38,12 @@ namespace ngs\cms\loads {
       $this->activeMenu = NGS()->args()->activeMenu;
     }
 
-
-    public function getManager(): AbstractCmsManager {
+    /**
+     * returns load default manager
+     *
+     * @return AbstractCmsManager
+     */
+    public function getManager() {
       return $this->manager;
     }
 

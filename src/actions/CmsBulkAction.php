@@ -17,7 +17,7 @@ namespace ngs\cms\actions {
 
   use ngs\request\AbstractAction;
 
-  abstract class CmsBulkAction extends AbstractAction {
+  abstract class CmsBulkAction extends AbsctractCmsAction {
 
     /**
      * main service

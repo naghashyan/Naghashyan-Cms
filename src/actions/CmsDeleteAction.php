@@ -1,5 +1,4 @@
 <?php
-
 /**
  * General parent cms delete action.
  *
@@ -7,9 +6,9 @@
  * @author Mikael Mkrtcyan
  * @site http://naghashyan.com
  * @mail mikael.mkrtchyan@naghashyan.com
- * @year 2010-2017
- * @package admin.actions
- * @version 7.0.0
+ * @year 2010-2019
+ * @package ngs.cms.actions
+ * @version 9.0.0
  *
  */
 
@@ -18,7 +17,7 @@ namespace ngs\cms\actions {
   use ngs\request\AbstractAction;
   use ngs\exceptions\NgsErrorException;
 
-  abstract class CmsDeleteAction extends AbstractAction {
+  abstract class CmsDeleteAction extends AbsctractCmsAction {
 
     /**
      * called before service function

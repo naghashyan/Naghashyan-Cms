@@ -13,6 +13,8 @@
 
 namespace ngs\cms\dal\binparams {
 
+  use ngs\exceptions\DebugException;
+
   class NgsCmsParamsBin {
 
     private $userId = null;
@@ -28,10 +30,11 @@ namespace ngs\cms\dal\binparams {
     private $itemType = null;
     private $returnItemsCount = null;
     private $joinCondition = "";
-    private $whereCondition = "";
+    private $whereCondition = [];
     private $customField = "*";
     private $customFields = [];
     private $searchKey = "";
+    private $tableName = '';
 
     /**
      * @param int $userId
@@ -296,17 +299,79 @@ namespace ngs\cms\dal\binparams {
     /**
      * @return string
      */
+    public function getTableName(): string {
+      return $this->tableName;
+    }
+
+    /**
+     * @param string $tableName
+     */
+    public function setTableName(string $tableName): void {
+      $this->tableName = $tableName;
+    }
+
+
+    /**
+     * @return string
+     */
     public function getWhereCondition(): string {
-      return $this->whereCondition;
+      if (count($this->whereCondition) === 0){
+        return '';
+      }
+      $whereConditionSql = 'WHERE ';
+      $operator = '';
+      foreach ($this->whereCondition as $key => $value){
+        $whereConditionSql .= $operator . $key . $value['comparison'] . $value['value'];
+        $operator = ' ' . $value['operator'] . ' ';
+      }
+      return $whereConditionSql;
+    }
+
+    private $defaultOperators = ['and' => true, 'or' => true, 'not' => true];
+    private $defaultComparisons = ['=' => true, '<>' => true, '!=' => true, '>' => true, '>=' => true, '<' => true,
+      '<=' => true, 'is null' => true, 'is not null=' => true, 'like' => true, 'exists' => true, 'in' => true, 'not' => true];
+
+
+    /**
+     *
+     * set where condition
+     *
+     * @param array $fieldArr ['dto'=>AbstractCmsDto, 'field'=>string]
+     * @param string $value
+     * @param string $operator acceptable Operators and, or, not
+     * @param string $comparison acceptable Comparisons =, <>, !=, >, >=, <, <=, is null, is not null,like, exists, in, not
+     */
+    public function setWhereCondition(array $fieldArr, string $value, string $operator, string $comparison): void {
+      if (!isset($this->defaultOperators[strtolower($operator)])){
+        throw new DebugException('please use and, or, not Operators');
+      }
+      if (!isset($this->defaultComparisons[strtolower($comparison)])){
+        throw new DebugException('please use =, <>, !=, >, >=, <, <=, is null, 
+        is not null, like, exists, in, not Comparisons');
+      }
+      if (!isset($fieldArr['dto']) || !isset($fieldArr['field'])){
+        throw new DebugException('please correct fieldArr');
+      }
+      if (!$fieldArr['dto']->isExsistField($fieldArr['field'])){
+        throw new DebugException($fieldArr['field'] . 'fieald not exist in dto');
+      }
+      $field = '`' . $fieldArr['dto']->getTableName() . '`.' . '`' . $fieldArr['field'] . '`';
+      $this->whereCondition[$field] = ['value' => $value, 'operator' => $operator, 'comparison' => $comparison];
     }
 
     /**
      * @param string $whereCondition
      */
-    public function setWhereCondition(string $whereCondition): void {
-      $this->whereCondition = $whereCondition;
+    public function setWhereOrCondition(array $fieldArr, string $value, string $comparison = '='): void {
+      $this->setWhereCondition($fieldArr, $value, 'or', $comparison);
     }
-    
+
+    /**
+     * @param string $key
+     */
+    public function setWhereAndCondition(array $fieldArr, string $value, string $comparison = '='): void {
+      $this->setWhereCondition($fieldArr, $value, 'and', $comparison);
+    }
 
   }
 

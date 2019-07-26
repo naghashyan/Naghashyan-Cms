@@ -92,7 +92,8 @@ namespace ngs\cms\loads {
     public final function load() {
       $this->beforeLoad();
       $manager = $this->getManager();
-      $this->initializeVisibleFieldsMethods($manager->createDto());
+      $itemDto = $manager->createDto();
+      $this->initializeVisibleFieldsMethods($itemDto);
       $paramsBin = $this->getNgsListBinParams();
       $itemDtos = $manager->getList($paramsBin);
       $itemsCount = $manager->getItemsCount($paramsBin);
@@ -138,7 +139,7 @@ namespace ngs\cms\loads {
       $paramsBin->setOrderBy(NGS()->args()->ordering);
       $paramsBin->setLimit($this->getLimit());
       $paramsBin->setOffset($this->getOffset());
-      $paramsBin->setWhereCondition($whereCondition);
+      //$paramsBin->setWhereCondition($whereCondition);
       $paramsBin->setJoinCondition($joinCondition);
       $paramsBin = $this->modifyNgsListBinParams($paramsBin);
       return $paramsBin;
@@ -164,8 +165,12 @@ namespace ngs\cms\loads {
       return "";
     }
 
-
-    public abstract function getManager(): AbstractCmsManager;
+    /**
+     * returns load default manager
+     *
+     * @return AbstractCmsManager
+     */
+    public abstract function getManager();
 
     private function getNgsWhereCondition(): string {
       if ($this->getWhereCondition() != ""){

@@ -26,6 +26,8 @@ namespace ngs\cms\dal\dto {
       return $result;
     }
 
+    abstract function getTableName(): string;
+
     public function __call($m, $a) {
       return parent::__call($m, $a);
     }

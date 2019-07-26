@@ -3,10 +3,10 @@
  * General parent load for all imusic.am admin load classes
  *
  * @author Levon Naghashyan
- * @site   http://naghashyan.com
+ * @site   https://naghashyan.com
  * @email  levon@naghashyan.com
- * @year   2012-2017
- * @package admin.loads.music
+ * @year   2012-2019
+ * @package ngs.cms.loads
  * @version 6.5.0
  *
  **/
@@ -18,11 +18,11 @@ namespace ngs\cms\loads {
 
 
     public function getTemplate() {
-      return NGS()->getTemplateDir() . "/cms/main_load.tpl";
+      return NGS()->getTemplateDir() . '/cms/main_load.tpl';
     }
 
     protected function getActiveMenu() {
-      return ["menu" => "", "submenu" => ""];
+      return ['menu' => '', 'submenu' => ''];
     }
 
 
@@ -31,7 +31,7 @@ namespace ngs\cms\loads {
     }
 
     public function getPermalink() {
-      return "";
+      return '';
     }
 
     /**
@@ -39,7 +39,7 @@ namespace ngs\cms\loads {
      * @return string
      */
     public function getListLoad(): string {
-      return "ngs.cms.loads.list";
+      return 'ngs.cms.loads.list';
     }
 
     /**
@@ -79,10 +79,10 @@ namespace ngs\cms\loads {
         return [];
       }
       $loads = [];
-      $loads["items_content"]["args"] = ["manager" => $this->getManager(), "listLoad" => $this->getListLoad(),
-        "mainLoad" => $this->getMainLoad(), "addLoad" => $this->getAddLoad(),
-        "editLoad" => $this->getEditLoad(), "deleteAction" => $this->getDeleteAction(), "activeMenu" => $this->getActiveMenu()];
-      $loads["items_content"]["action"] = $this->getListLoad();
+      $loads['items_content']['args'] = ['manager' => $this->getManager(), 'listLoad' => $this->getListLoad(),
+        'mainLoad' => $this->getMainLoad(), 'addLoad' => $this->getAddLoad(),
+        'editLoad' => $this->getEditLoad(), 'deleteAction' => $this->getDeleteAction(), 'activeMenu' => $this->getActiveMenu()];
+      $loads['items_content']['action'] = $this->getListLoad();
 
       return $loads;
     }
@@ -99,10 +99,10 @@ namespace ngs\cms\loads {
     public abstract function getParentSections(): array;
 
     public final function load() {
-      $this->addParam("parentSections", $this->getParentSections());
-      $this->addParam("sectionName", $this->getSectionName());
-      $this->addJsonParam("addLoad", $this->getAddLoad());
-      $this->addJsonParam("mainLoad", $this->getMainLoad());
+      $this->addParam('parentSections', $this->getParentSections());
+      $this->addParam('sectionName', $this->getSectionName());
+      $this->addJsonParam('addLoad', $this->getAddLoad());
+      $this->addJsonParam('mainLoad', $this->getMainLoad());
 
       $this->afterCmsLoad();
     }
