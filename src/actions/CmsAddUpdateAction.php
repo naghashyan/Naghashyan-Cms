@@ -67,7 +67,7 @@ namespace ngs\cms\actions {
      * @param $params
      * @return mixed
      */
-    public function beforeService($params) {
+    public function beforeService(array $params): array {
       return $params;
     }
 
@@ -162,12 +162,13 @@ namespace ngs\cms\actions {
         if ($methodValue['type'] === 'date'){
           $format = 'd F Y';
           if ($fieldName === 'date_start'){
-            $format = 'd M, Y, H:i';
+            $format = 'd F Y, H:i';
             $value .= ', 00:00';
           } else if ($fieldName === 'date_end'){
-            $format = 'd M, Y, H:i';
+            $format = 'd F Y, H:i';
             $value .= ', 23:59';
           }
+
           $date = \DateTime::createFromFormat($format, $value);
           if (!$date){
             continue;
