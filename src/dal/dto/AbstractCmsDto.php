@@ -15,6 +15,7 @@ namespace ngs\cms\dal\dto {
 
   abstract class AbstractCmsDto extends AbstractDto {
 
+    protected $tableName = '';
     private $_cmsParentObject = null;
     protected $mapArray = ["id" => ["type" => "number", "display_name" => "ID", "field_name" => "id", "visible" => true, "actions" => []]];
 
@@ -26,8 +27,10 @@ namespace ngs\cms\dal\dto {
       return $result;
     }
 
-    abstract function getTableName(): string;
-
+    public function getTableName(): string {
+      return $this->tableName;
+    }
+    
     public function __call($m, $a) {
       return parent::__call($m, $a);
     }

@@ -319,9 +319,13 @@ namespace ngs\cms\dal\binparams {
         return '';
       }
       $whereConditionSql = 'WHERE ';
-      $operator = '';
+      $operator = ' ';
       foreach ($this->whereCondition as $key => $value){
-        $whereConditionSql .= $operator . $key . $value['comparison'] . $value['value'];
+        $_value = $value['value'];
+        if (is_string($_value)){
+          $_value = ' \'' . $_value . '\' ';
+        }
+        $whereConditionSql .= $operator . $value['field'].' ' . $value['comparison'] . $_value;
         $operator = ' ' . $value['operator'] . ' ';
       }
       return $whereConditionSql;
@@ -356,7 +360,7 @@ namespace ngs\cms\dal\binparams {
         throw new DebugException($fieldArr['field'] . 'fieald not exist in dto');
       }
       $field = '`' . $fieldArr['dto']->getTableName() . '`.' . '`' . $fieldArr['field'] . '`';
-      $this->whereCondition[$field] = ['value' => $value, 'operator' => $operator, 'comparison' => $comparison];
+      $this->whereCondition[] = ['field' => $field, 'value' => $value, 'operator' => $operator, 'comparison' => $comparison];
     }
 
     /**

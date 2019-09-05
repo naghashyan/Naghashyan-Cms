@@ -66,11 +66,9 @@ namespace ngs\cms\managers {
      * @return AbstractCmsDto[]
      */
     public function getList(NgsCmsParamsBin $paramsBin = null) {
-
       if ($paramsBin === null){
         $paramsBin = new NgsCmsParamsBin();
       }
-
       return $this->getMapper()->getList($paramsBin);
     }
 

@@ -22,5 +22,8 @@
     "psr-4": {
       "ngs\\cms\\": "src/"
     }
-  }
+  },
+  "files": [
+    "src/system/NgsDefaultConstants.php"
+  ]
 }
