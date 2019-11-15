@@ -1,0 +1,196 @@
+/*---------------------- Page Info ----------------------*/
+
+.page_main {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.page-info {
+  line-height: 55px;
+  padding: 0px 20px;
+  background-color: $secondary-color;
+  color: $color6;
+  display: table;
+  width: 100%;
+  margin-bottom: 40px;
+  margin-top: 3px;
+
+  .action-box {
+    display: table-cell;
+    text-align: right;
+    width: 100%;
+  }
+
+  & > p {
+    display: table-cell;
+    width: 100%;
+    font-size: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .bredcramb {
+    display: table-cell;
+    font-size: 13px;
+    padding-left: 7px;
+    white-space: nowrap;
+
+    a {
+      cursor: pointer;
+      color: $color6;
+
+      &:hover {
+        color: $color1;
+      }
+      .material-icons {
+        margin-top: -4px;
+      }
+    }
+    .material-icons {
+      display: inline-block;
+      font-size: 16px;
+      margin-top: -2px;
+      vertical-align: middle;
+    }
+  }
+}
+
+
+/*---------------------- Edit box ----------------------*/
+
+.pac-container {
+  z-index: 5000;
+}
+.modal {
+  .edit-box {
+    .edit-form {
+      background-color: $color3;
+      max-width: none;
+      margin: 0;
+    }
+  }
+}
+.edit-box {
+  color: $color2;
+
+  .form-content {
+    .added-items-box {
+      margin-bottom: 10px;
+
+      li {
+        background-color: $color4;
+        color: $color6;
+
+        a {
+          color: $color6;
+        }
+      }
+    }
+  }
+
+  .input-field-checkbox {
+    margin-bottom: 10px;
+  }
+  .input-field {
+    margin: 0;
+
+    input:not([type]), input[type="text"]:not(.browser-default), input[type="password"]:not(.browser-default), input[type="email"]:not(.browser-default), input[type="url"]:not(.browser-default), input[type="time"]:not(.browser-default), input[type="date"]:not(.browser-default), input[type="datetime"]:not(.browser-default), input[type="datetime-local"]:not(.browser-default), input[type="tel"]:not(.browser-default), input[type="number"]:not(.browser-default), input[type="search"]:not(.browser-default), textarea.materialize-textarea {
+      border-color: $color7;
+      color: $color7;
+    }
+
+    label {
+      &.active {
+        color: $color8;
+      }
+    }
+    .prefix {
+      &.active {
+        color: $color8;
+      }
+    }
+    input {
+      color: $color2;
+      border-bottom-color: $color2;
+
+      &:focus, &.valid {
+        box-shadow: 0 1px 0 0 $color2;
+      }
+    }
+    label {
+      color: $color2;
+
+      &.active {
+        color: $color2;
+      }
+    }
+  }
+  .edit-form {
+    padding: 40px 30px;
+    max-width: 780px;
+    margin: 0 20px;
+  }
+
+  .action-tables {
+    background: $secondary-color none repeat scroll 0 0;
+    color: $color6;
+
+    .tabs {
+      background-color: transparent;
+      overflow: visible;
+
+      .indicator {
+        bottom: -2px;
+        background-color: $color1;
+      }
+      .tab {
+        a {
+          min-width: 200px;
+          font-weight: 600;
+          color: $color1;
+        }
+      }
+    }
+  }
+  .form-box {
+    padding: 50px 20px 30px;
+  }
+  .table-box {
+    padding: 0 20px;
+
+    .images_section {
+      overflow: hidden;
+    }
+  }
+}
+
+
+@media screen  and (max-width: $tabletWidthSmall){
+  .page-info {
+    padding: 0 10px;
+    line-height: 45px;
+
+    & > p {
+      font-size: 17px;
+    }
+  }
+}
+
+@media screen  and (max-width: $phoneWidthLarge){
+  .page-info {
+    display: block;
+
+    & > p {
+      display: block;
+      line-height: 30px;
+    }
+
+    .bredcramb {
+      display: block;
+      padding: 0;
+      line-height: 30px;
+    }
+  }
+}
+

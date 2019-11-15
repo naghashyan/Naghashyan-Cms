@@ -1,0 +1,45 @@
+
+
+/*---------------------- Edit box ----------------------*/
+
+.edit-box {
+  color: $color2;
+
+  .edit-form {
+    padding: 40px 30px;
+    max-width: 780px;
+    margin: 0 20px;
+  }
+
+  .action-tables {
+    background: $color7 none repeat scroll 0 0;
+    color: $color4;
+
+    .tabs {
+      background-color: transparent;
+      overflow: visible;
+
+      .indicator {
+        bottom: -2px;
+        background-color: $color5;
+      }
+      .tab {
+        a {
+          min-width: 200px;
+          font-weight: 600;
+          color: $color2;
+        }
+      }
+    }
+  }
+  .form-box {
+    padding: 50px 20px 30px;
+  }
+  .table-box {
+    padding: 0 20px;
+
+    .images_section {
+      overflow: hidden;
+    }
+  }
+}

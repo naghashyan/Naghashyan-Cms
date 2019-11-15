@@ -1,28 +1,30 @@
 <?php
 /**
- * General parent load for all imusic.am admin load classes
+ * General parent load for all
+ * cms add and update(edit) loads
  *
  * @author Levon Naghashyan
- * @site   http://naghashyan.com
+ * @site   https://naghashyan.com
  * @email  levon@naghashyan.com
- * @year   2012-2017
- * @package admin.loads.music
- * @version 6.5.0
+ * @year   2012-2019
+ * @package ngs.cms.loads
+ * @version 2.0.0
+ * @copyright Naghashyan Solutions
  *
  **/
 
 namespace ngs\cms\loads {
 
 
-  abstract class CmsAddUpdateLoad extends AbstractCmsLoad {
+  abstract class AbstractCmsAddUpdateLoad extends AbstractCmsLoad {
 
 
     /**
      * @var array
      */
     private $addEditFieldsMethods = [];
-    const NGS_CMS_EDIT_ACTION_TYPE_POPUP = "popup";
-    const NGS_CMS_EDIT_ACTION_TYPE_INPLACE = "inplace";
+    const NGS_CMS_EDIT_ACTION_TYPE_POPUP = 'popup';
+    const NGS_CMS_EDIT_ACTION_TYPE_INPLACE = 'inplace';
 
     /**
      * @param array $visibleFieldsMethods
@@ -35,11 +37,15 @@ namespace ngs\cms\loads {
      * @return array
      */
     public function getAddEditFieldsMethods(): array {
-      return $this->addEditFieldsMethods;
+      $result = [];
+      foreach ($this->addEditFieldsMethods as $key => $addEditFieldMethod){
+        $result[$addEditFieldMethod['group_name']][$key] = $addEditFieldMethod;
+      }
+      return $result;
     }
 
-    public function getTemplate() {
-      return NGS()->getTemplateDir() . "/cms/add_update.tpl";
+    public function getTemplate(): string {
+      return NGS()->getTemplateDir('ngs-cms') . '/add_update.tpl';
     }
 
     /**
@@ -47,12 +53,12 @@ namespace ngs\cms\loads {
      * @return string
      */
     public function getEditActionType(): string {
-      return "";
+      return '';
     }
 
     public abstract function getManager();
 
-    public abstract function getItemId();
+    public abstract function getItemId(): int;
 
     /**
      * returns js cancel load page
@@ -77,25 +83,22 @@ namespace ngs\cms\loads {
       }
     }
 
-    public function getPossibleValuesForSelects($itemDto) {
+    public function getPossibleValuesForSelects($itemDto): array {
       return [];
     }
 
-    public final function load() {
+    public final function load(): void {
       $manager = $this->getManager();
-
       $itemDto = null;
-      $fieldsType = "add";
+      $fieldsType = 'add';
       if ($this->getItemId()){
         $itemDto = $manager->getItemById($this->getItemId());
-        $fieldsType = "edit";
+        $fieldsType = 'edit';
       }
       $this->initializeAddEditFieldsMethods($manager->createDto(), $fieldsType);
-      $this->addParam("visibleFields", $this->getAddEditFieldsMethods());
-      $this->addJsonParam("cancelLoad", $this->getCancelLoad());
-      $this->addJsonParam("saveAction", $this->getSaveAction());
-      $this->addJsonParam("limit", NGS()->args()->limit);
-      $this->addJsonParam("page", NGS()->args()->page);
+      $this->addParam('visibleFields', $this->getAddEditFieldsMethods());
+      $this->addJsonParam('cancelLoad', $this->getCancelLoad());
+      $this->addJsonParam('saveAction', $this->getSaveAction());
       $editActionType = $this->getEditActionType();
       if ($editActionType == self::NGS_CMS_EDIT_ACTION_TYPE_INPLACE){
         $editActionType = self::NGS_CMS_EDIT_ACTION_TYPE_INPLACE;
@@ -103,20 +106,25 @@ namespace ngs\cms\loads {
         $editActionType = self::NGS_CMS_EDIT_ACTION_TYPE_POPUP;
       }
       if (NGS()->args()->parentId){
-        $this->addJsonParam("parentId", NGS()->args()->parentId);
+        $this->addJsonParam('parentId', NGS()->args()->parentId);
       }
-      $this->addJsonParam("editActionType", $editActionType);
-      $this->addParam("itemDto", $itemDto);
-      $this->addParam("possibleValues", $this->getPossibleValuesForSelects($itemDto));
+      $this->addJsonParam('editActionType', $editActionType);
+      $this->addParam('itemDto', $itemDto);
+      $this->addParam('possibleValues', $this->getPossibleValuesForSelects($itemDto));
+      $jsParams = ['itemId' => NGS()->args()->itemId, 'parentId' => NGS()->args()->parentId,
+        'page' => $this->getCurrentPage(), 'limit' => $this->getLimit(), 'offset' => $this->getOffset(),
+        'pagesShowed' => $this->getPagesShowed(), 'ordering' => NGS()->args()->ordering,
+        'sorting' => NGS()->args()->sorting, 'searchKey' => NGS()->args()->searchKey];
+      $this->addJsonParam('pageParams', $jsParams);
       $this->afterCmsLoad($itemDto);
     }
 
     /**
-     * get itemDto if itemId is set, if not, get null
+     * after cms loaded
      *
-     * @param $itemDto
+     * @return void
      */
-    public function afterCmsLoad($itemDto) {
+    public function afterCmsLoad($itemDto): void {
 
     }
 

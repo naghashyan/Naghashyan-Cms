@@ -1,0 +1,36 @@
+.login-content {
+  width: 96%;
+  max-width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* or try 50% */
+
+  .login-form {
+    input {
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        box-shadow: inset 0 0 0 1000px $color6 !important;
+      }
+    }
+  }
+}
+
+.login-logo-box {
+  margin: 0 auto 40px;
+  max-width: 250px;
+}
+
+.login-box {
+  .btn {
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    height: 50px;
+    font-size: 18px;
+    display: block;
+    margin-top: 35px;
+  }
+}

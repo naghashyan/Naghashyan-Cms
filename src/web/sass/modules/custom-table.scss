@@ -1,0 +1,735 @@
+/*---------------table----------------*/
+
+.table-box {
+  padding: 0 20px;
+  position: relative;
+
+  .bulk-actions-buttons {
+    text-align: right;
+    display: block;
+    margin-bottom: 20px;
+
+    .btn {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+  }
+
+  .table {
+    .table-row-group {
+      .table-row {
+
+        &.is_edited {
+          background-color: $color2;
+
+          .input-field {
+            display: block;
+          }
+          .text-box {
+            display: none;
+          }
+        }
+
+        li {
+          position: static;
+
+          &.full-box {
+            width: 100%;
+          }
+        }
+        .buttons-fixed {
+          position: absolute;
+          right: 20px;
+          padding: 10px 12px 10px 12px;
+          margin-top: -10px;
+          background-color: $color3;
+          border-left: 1px solid $color5;
+          border-right: 1px solid $color5;
+        }
+        .buttons-tmp {
+          opacity: 0;
+          pointer-events: none;
+        }
+        .input-field {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .action-bar {
+
+    .pagging-box {
+      margin-top: 20px;
+      display: block;
+      width: 100%;
+      padding-bottom: 30px;
+      background-color: $color3;
+    }
+  }
+
+  .play-btn {
+    cursor: pointer;
+    opacity: 0.6;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .radio-play-btn {
+    cursor: pointer;
+    opacity: 0.6;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+}
+
+.table {
+  background: transparent;
+  color: $darken-5;
+  display: table;
+  font-size: 13px;
+  margin-bottom: 10px;
+  width: 100%;
+  border: 0;
+  border-collapse: collapse;
+
+  .status {
+    &::before {
+      padding: 0;
+    }
+  }
+
+  .add-track {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    cursor: pointer;
+  }
+  .tracks-list {
+    margin-bottom: 30px;
+  }
+
+  .table-row-group {
+    .table-row {
+      &:hover {
+        background-color: darken($color3, 3%);
+
+        .buttons-fixed {
+          background-color: darken($color3, 3%);
+        }
+      }
+      &.inactive {
+        &:hover {
+          background-color: $color6;
+        }
+      }
+
+    }
+  }
+
+  .upload-btn {
+    overflow: hidden;
+    input {
+      cursor: pointer;
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      height: 100%;
+    }
+  }
+
+  .table-row {
+    background-color: $color1;
+    display: table-row;
+
+    &.inactive {
+      background-color: $theme-color21;
+    }
+
+    &.edit-mode {
+      .show-field {
+        display: none;
+      }
+      .edit-field {
+        display: initial;
+        &.edit-artists-field {
+          display: block;
+        }
+      }
+    }
+
+    .edit-field {
+      display: none;
+    }
+
+    .edit-artists-field {
+      position: relative;
+
+      .create-artist {
+        position: absolute;
+        right: -11px;
+        bottom: -20px;
+        color: $spec-2;
+        cursor: pointer;
+
+        i {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .artist-row {
+      position: relative;
+      .remove-artist {
+        position: absolute;
+        color: $spec-3;
+        right: -10px;
+        top: 40px;
+        cursor: pointer;
+        i {
+          font-size: 18px;
+        }
+      }
+    }
+
+    &.add-album {
+      background-color: $lighten-3;
+      color: $darken-1;
+      line-height: 45px;
+      font-size: 14px;
+
+      li {
+        vertical-align: top;
+
+        .text {
+          margin-bottom: 0;
+        }
+      }
+
+      .chip {
+        display: block;
+        float: none;
+        overflow: hidden;
+        padding-right: 30px;
+        position: relative;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+        background-color: $lighten-1;
+        color: $darken-3;
+
+        .close {
+          position: absolute;
+          right: 10px;
+        }
+      }
+      .chips {
+        margin-bottom: 0;
+
+        .input {
+          color: $darken-1;
+        }
+      }
+    }
+
+    &.table-head {
+      font-weight: 600;
+      color: $color2;
+      background-color: $color3;
+
+      li {
+        border: 1px solid $color5;
+
+        &.sorted {
+          cursor: pointer;
+          &:after{
+            content: '●';
+            display: inline-block;
+          }
+          &.desc{
+            &:after{
+              content: '▼';
+              display: inline-block;
+            }
+          }
+          &.asc{
+            &:after{
+              content: '▲';
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+    & > li {
+      position: relative;
+      border: 1px solid $color5;
+      display: table-cell;
+      padding: 8px;
+      padding-right: 15px;
+      white-space: nowrap;
+      vertical-align: middle;
+      height: 50px;
+
+      &.mobile-view {
+        display: none;
+      }
+
+      &.id {
+        min-width: 100px;
+        max-width: 100px;
+      }
+      &.artist {
+        min-width: 250px;
+        max-width: 250px;
+        overflow: hidden;
+        position: relative;
+
+        .artist-inner {
+          overflow: hidden;
+          position: absolute;
+          text-overflow: ellipsis;
+          top: 15px;
+          white-space: nowrap;
+          width: 90%;
+        }
+      }
+      &.check {
+        min-width: 50px;
+        max-width: 50px;
+        text-align: center;
+        vertical-align: middle;
+
+        label {
+          display: block;
+          margin: 5px 5px 0 6px;
+        }
+      }
+      &.num {
+        min-width: 70px;
+        max-width: 70px;
+      }
+      &.duration {
+        min-width: 80px;
+        max-width: 80px;
+        text-align: center;
+      }
+      &.play-count {
+        min-width: 90px;
+        max-width: 90px;
+        text-align: center;
+      }
+      &.status {
+        min-width: 180px;
+        max-width: 180px;
+        text-align: center;
+      }
+      &.delete-box {
+        min-width: 90px;
+        max-width: 90px;
+      }
+      &.play-track-box {
+        min-width: 220px;
+        max-width: 220px;
+      }
+      &.year {
+        min-width: 80px;
+        max-width: 80px;
+        text-align: center;
+      }
+      &.added-date {
+        min-width: 130px;
+        max-width: 130px;
+      }
+      &.clickable {
+        cursor: pointer;
+      }
+      &.description {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+
+        .description-inner {
+          overflow: hidden;
+          position: absolute;
+          text-overflow: ellipsis;
+          top: 15px;
+          white-space: nowrap;
+          width: 95%;
+        }
+      }
+      &.track-box-name {
+        min-width: 180px;
+        max-width: 180px;
+
+        a {
+          color: $color2 !important;
+        }
+      }
+      &.track {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+
+        .track-inner {
+          overflow: hidden;
+          position: absolute;
+          text-overflow: ellipsis;
+          top: 15px;
+          white-space: nowrap;
+          width: 95%;
+        }
+      }
+      &.artist-name {
+        position: relative;
+        min-width: 250px;
+        max-width: 250px;
+
+        .artist-name-inner {
+          overflow: hidden;
+          position: absolute;
+          text-overflow: ellipsis;
+          top: 15px;
+          white-space: nowrap;
+          width: 90%;
+        }
+      }
+
+      audio {
+        position: relative;
+        top: 5px;
+      }
+
+      a {
+        color: $lighten-2;
+      }
+      .status-btn {
+        border-radius: 1px;
+        color: $lighten-6;
+        content: "";
+        font-family: "Open Sans";
+        font-size: 11px;
+        margin: auto;
+        padding: 3px 6px;
+        text-transform: capitalize;
+
+        &.draft {
+          background-color: $spec-1;
+        }
+        &.hidden {
+          background-color: $lighten-1;
+          color: $darken-3;
+        }
+        &.published {
+          background-color: $spec-2;
+        }
+      }
+      .action-btn {
+        border-radius: 1px;
+        cursor: pointer;
+        border: 0;
+        font-size: 12px;
+        margin-bottom: 3px;
+        vertical-align: middle;
+        white-space: nowrap;
+        color: $color6;
+        padding: 0 5px;
+        height: 26px;
+        line-height: 24px;
+        box-sizing: border-box;
+        min-width: 60px;
+        opacity: 0.9;
+        text-align: center;
+        background-color: $spec-2;
+
+        &:hover {
+          opacity: 1;
+          box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+        }
+
+        .material-icons {
+          font-size: 11px;
+          vertical-align: middle;
+          display: inline-block;
+          line-height: 24px;
+        }
+        &.replace-btn {
+          background-color: $spec-1;
+
+          &:hover {
+            background-color: darken($spec-1, 5%);
+          }
+        }
+        &.save-btn {
+          background-color: $spec-2;
+
+          &:hover {
+            background-color: darken($spec-2, 10%);
+          }
+        }
+        &.cancel-btn {
+          background-color: $base;
+          color: $lighten-5;
+
+          &:hover {
+            background-color: darken($base, 5%);
+          }
+        }
+        &.edit-btn {
+          background-color: $color7;
+
+          &:hover {
+            background-color: lighten($color7, 5%);
+          }
+        }
+        &.play-btn {
+          background-color: $base;
+          color: $lighten-5;
+
+          &:hover {
+            background-color: darken($base, 5%);
+          }
+        }
+        &.reset-btn {
+          background-color: $spec-1;
+
+          &:hover {
+            background-color: darken($spec-1, 5%);
+          }
+        }
+        &.delete-btn {
+          background-color: $spec-3;
+
+          &:hover {
+            background-color: darken($spec-3, 10%);
+          }
+        }
+        &.upload-btn {
+          background-color: $spec-2;
+          position: relative;
+
+          &:hover {
+            background-color: darken($spec-2, 10%);
+          }
+        }
+      }
+
+      &.checkbox-cell {
+        width: 50px;
+        min-width: 50px;
+        padding: 8px;
+
+        .checkbox-content {
+          width: 100%;
+          display: block;
+          text-align: center;
+
+          [type="checkbox"].filled-in {
+            + span {
+              position: relative;
+              cursor: pointer;
+              display: inline-block;
+              height: 20px;
+              width: 20px;
+              padding-left: 0;
+              line-height: 20px;
+              font-size: 1rem;
+              user-select: none;
+            }
+
+            // General
+            + span:after {
+              border-radius: 2px;
+            }
+
+            + span:before,
+            + span:after {
+              content: '';
+              left: 0;
+              position: absolute;
+              /* .1s delay is for check animation */
+              transition: border .25s, background-color .25s, width .20s .1s, height .20s .1s, top .20s .1s, left .20s .1s;
+              z-index: 1;
+            }
+
+            // Unchecked style
+            &:not(:checked) + span:before {
+              width: 0;
+              height: 0;
+              border: 3px solid transparent;
+              left: 6px;
+              top: 10px;
+              transform: rotateZ(37deg);
+              transform-origin: 100% 100%;
+            }
+
+            &:not(:checked) + span:after {
+              height: 20px;
+              width: 20px;
+              background-color: transparent;
+              border: 2px solid $color5;
+              top: 0px;
+              z-index: 0;
+            }
+
+            // Checked style
+            &:checked {
+              + span:before {
+                top: 0;
+                left: 1px;
+                width: 8px;
+                height: 13px;
+                border-top: 2px solid transparent;
+                border-left: 2px solid transparent;
+                border-right: 2px solid $color4;
+                border-bottom: 2px solid $color4;
+                transform: rotateZ(37deg);
+                transform-origin: 100% 100%;
+              }
+
+              + span:after {
+                top: 0;
+                width: 20px;
+                height: 20px;
+                border: 2px solid $color4;
+                background-color: transparent;
+                z-index: 0;
+              }
+            }
+
+            // Focused styles
+            &.tabbed:focus + span:after {
+              border-radius: 2px;
+              border-color: $base;
+              background-color: rgba(0, 0, 0, .1);
+            }
+
+            &.tabbed:checked:focus + span:after {
+              border-radius: 2px;
+              background-color: $color2;
+              border-color: $color2;
+            }
+
+            // Disabled style
+            &:disabled:not(:checked) + span:before {
+              background-color: transparent;
+              border: 2px solid transparent;
+            }
+
+            &:disabled:not(:checked) + span:after {
+              border-color: transparent;
+              background-color: $color4;
+            }
+
+            &:disabled:checked + span:before {
+              background-color: transparent;
+            }
+
+            &:disabled:checked + span:after {
+              background-color: $color4;
+              border-color: $color4;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.update-album-tracks-content {
+    .table-row {
+      &.edit-mode {
+        & > {
+          li {
+            vertical-align: top;
+
+            &.artist {
+              min-width: 400px;
+              overflow: visible;
+              max-width: 400px;
+            }
+
+            .select-dropdown {
+              max-height: 250px;
+            }
+
+            .artists-result {
+              padding-left: 20px;
+              max-height: 300px;
+              overflow-x: hidden;
+              white-space: normal;
+              padding-right: 0;
+              margin-right: 20px;
+            }
+
+            .added-items-box {
+              white-space: normal;
+
+              li {
+                margin-top: 5px;
+              }
+
+            }
+            .input-field {
+              label {
+                color: $lighten-1;
+
+                &.active {
+                  color: $lighten-1;
+                  transform: translateY(-4px) scale(0.8);
+                }
+              }
+            }
+            .added-items-box {
+              li {
+                background-color: $darken-4;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $phoneWidthLarge) {
+  .table-box {
+    padding: 0 10px;
+  }
+  .table {
+    .table-row {
+      display: block;
+      font-size: 0;
+      margin-bottom: 10px;
+
+      &.table-head {
+        display: none;
+      }
+
+      & > li {
+        font-size: 14px;
+        display: inline-block;
+        vertical-align: middle;
+        border: none;
+        border-bottom: 1px solid $base;
+
+        height: 45px;
+        width: 60%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        &.mobile-view {
+          display: inline-block;
+          vertical-align: middle;
+          width: 40%;
+          border-right: 1px solid $base;
+        }
+      }
+    }
+  }
+
+}

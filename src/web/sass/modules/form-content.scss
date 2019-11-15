@@ -1,0 +1,240 @@
+.form-action {
+  text-align: right;
+
+  button {
+    margin-right: 2%;
+  }
+}
+
+.form-content {
+  .editable-elem {
+    display: none;
+
+    &.is_active {
+      display: block;
+    }
+  }
+  li {
+    h4 {
+      font-size: 20px;
+      margin: 10px 0 30px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed $lighten-1;
+    }
+  }
+
+  .form-content-item {
+    position: relative;
+
+    .form-item-group-name {
+      margin-bottom: 20px;
+    }
+
+    .form-item {
+      margin-right: 2%;
+    }
+
+  }
+
+  .form-content-count-2 {
+    .form-item {
+      float: left;
+      width: 48%;
+      margin-right: 2%;
+    }
+  }
+
+  .form-content-count-3,
+  .form-content-count-5,
+  .form-content-count-6 {
+    .form-item {
+      float: left;
+      width: 31%;
+      margin-right: 2%;
+    }
+  }
+
+  .form-content-count-4,
+  .form-content-count-7,
+  .form-content-count-8 {
+    .form-item {
+      float: left;
+      width: 23%;
+      margin-right: 2%;
+    }
+  }
+
+  .input-field-checkbox {
+    label {
+      color: $darken-6;
+    }
+  }
+  .upload-btn {
+    width: 200px;
+    position: relative;
+    .upload-file {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .form-group {
+    display: table;
+    width: 100%;
+
+    &.no-padding {
+      .input-field {
+        padding: 0;
+      }
+    }
+
+    .input-field, .element-field {
+      display: table-cell;
+      vertical-align: top;
+      padding-right: 20px;
+
+      & > .file-field {
+        display: block;
+        padding: 0;
+      }
+      .upload-progress-bar {
+        background-color: $darken-2;
+        border-radius: 10px;
+        display: inline-block;
+        width: 100%;
+        height: 15px;
+
+        .upload-progress-bar {
+          background-color: $lighten-1;
+          border-radius: 10px;
+          height: 15px;
+          width: 0;
+          height: 15px;
+        }
+      }
+
+      &:last-child {
+        padding: 0;
+      }
+
+      &.name-box {
+        width: 75%;
+      }
+      &.name-half-box {
+        width: 50%;
+      }
+      &.type-box {
+        min-width: 150px;
+      }
+      &.date-box {
+        width: 50%;
+      }
+      &.image-select-box {
+        width: 100%;
+
+        .input-field {
+          width: 100%;
+          display: table;
+          margin: 0;
+        }
+      }
+      &.image-box {
+        .img_cell {
+          border: 1px dashed $darken-6;
+          position: relative;
+          display: block;
+
+          img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+          }
+
+          .delete-image {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            display: inline-block;
+            cursor: pointer;
+          }
+        }
+      }
+      &.add-box {
+        vertical-align: middle;
+        text-align: center;
+
+        .add-btn {
+          vertical-align: middle;
+          color: $lighten-2;
+
+          &.disabled {
+            opacity: 0;
+          }
+        }
+      }
+
+    }
+
+    .artists-result {
+      position: absolute;
+      width: 100%;
+      z-index: 1000;
+      right: 0;
+      padding-left: 46px;
+      padding-right: 20px;
+      top: 47px;
+
+      & > ul {
+        background-color: $lighten-3;
+
+        li {
+          padding: 10px;
+          color: $text-color4;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #D5DBE4;
+          }
+        }
+      }
+    }
+  }
+
+  .input-field {
+    input {
+      &:-webkit-autofill {
+        -webkit-box-shadow: inset 0 0 0 1000px $color3 !important;
+      }
+    }
+  }
+
+  .added-items-box {
+    li {
+      display: inline-block;
+      vertical-align: top;
+      padding: 5px 50px 5px 10px;
+      margin: 0 5px 5px 0;
+      background-color: $darken-1;
+      border-radius: 5px;
+      position: relative;
+
+      .close-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        width: 24px;
+        height: 24px;
+        -webkit-transform: translate(0, -50%);
+        -moz-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        -o-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+      }
+    }
+  }
+}
+

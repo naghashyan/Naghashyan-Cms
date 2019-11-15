@@ -1,0 +1,310 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Open Sans";
+}
+
+
+body {
+  background-color: $color6;
+  height: auto;
+  min-width: 1024px;
+}
+
+html {
+  background-color: $color6;
+}
+
+* {
+  &::-moz-placeholder {
+    color: $lighten-1;
+  }
+
+  &::-webkit-input-placeholder {
+    color: $lighten-1;
+  }
+
+  &:-ms-input-placeholder {
+    color: $lighten-1;
+  }
+}
+
+.horizontal {
+  overflow-x: auto;
+}
+
+.horizontal::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: $color3; /* or add it to the track */
+}
+
+.horizontal::-webkit-scrollbar-thumb {
+  background: $color5;
+}
+
+.ajax-loader {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.main-container {
+  padding: 60px 0 30px 280px;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.clear {
+  clear: both;
+}
+
+.space {
+  height: 10px;
+}
+
+.double-space {
+  clear: both;
+  height: 40px;
+  width: 100%;
+}
+
+.is_hidden {
+  display: none !important;
+}
+
+.no-event {
+  pointer-events: none;
+}
+
+.table-row-group {
+  display: table-row-group;
+}
+
+.button {
+  opacity: 0.85;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.ui-dialog {
+  z-index: 10;
+}
+
+.button {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.blue {
+  background-color: $spec-1 !important;
+  border: 1px solid $spec-1;
+  color: $lighten-6;
+}
+
+.grey {
+  background-color: $base;
+  color: $lighten-6;
+}
+
+.green {
+  color: $lighten-6;
+  background-color: $spec-2;
+  border: 1px solid $spec-2;
+}
+
+.imred {
+  color: $lighten-4;
+  background-color: $spec-4;
+  border: 1px solid $spec-4;
+
+  &:hover {
+    border: 1px solid darken($spec-4, 10%);
+    background-color: darken($spec-4, 10%);
+  }
+}
+
+.waves-light {
+  &.btn {
+    background-color: $spec-1;
+    opacity: 0.85;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.secondary-button {
+      background-color: $base;
+    }
+  }
+}
+
+.chips {
+  border-color: $lighten-1;
+  color: $lighten-1;
+
+  &.focus {
+    box-shadow: 0 1px 0 0 $lighten-1;
+    border-color: $lighten-1;
+  }
+
+  .input {
+    color: $lighten-3;
+  }
+}
+
+.modal-container {
+  padding-bottom: 30px;
+
+  .add-track {
+    color: #ffffff;
+    position: absolute;
+    right: 18px;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background-color: #6a819a;
+    cursor: pointer;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    i {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+    }
+  }
+}
+
+.filter-options-content {
+  padding: 0 20px;
+
+  .input-field {
+
+    .prefix {
+      color: $darken-1;
+    }
+  }
+}
+
+.img_cell {
+  display: table-cell;
+  width: 170px
+}
+
+.switch {
+  label {
+    .lever {
+      height: 25px;
+      width: 48px;
+      background-color: $darken-1;
+
+      &:before,
+      &:after {
+        top: 2px;
+        background-color: $lighten-3;
+      }
+    }
+
+    input[type=checkbox] {
+      &:checked {
+        & + .lever {
+          background-color: $darken-6;
+
+          &:before,
+          &:after {
+            left: 26px;
+            background-color: $lighten-3;
+          }
+        }
+      }
+    }
+  }
+}
+
+select {
+  &:not(.browser-default) {
+    display: none;
+  }
+}
+
+.select-wrapper {
+  .caret {
+    fill: $lighten-1;
+  }
+}
+
+form {
+  input {
+    &.invalid.ngs {
+      border-color: red !important;
+    }
+  }
+}
+
+.ngs-error-toast {
+  background: $spec-4;
+}
+.ngs-success-toast {
+  background: $spec-2;
+}
+
+/*--------------------------------------
+                filter
+-------------------------------------- */
+
+.filter-section {
+  float: right;
+  text-align: right;
+
+  .input-field {
+    margin-right: 30px;
+    display: inline-block;
+  }
+  button {
+    display: inline-block;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

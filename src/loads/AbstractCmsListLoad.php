@@ -25,7 +25,7 @@ namespace ngs\cms\loads {
     /**
      * @var array
      */
-    private $visibleFieldsMethods = ["getId" => ["type" => "number"], "display_name" => "ID", "data_field_name" => "id"];
+    private $visibleFieldsMethods = ['getId' => ['type' => 'number'], 'display_name' => 'ID', 'data_field_name' => 'id'];
 
     /**
      * @param array $visibleFieldsMethods
@@ -45,7 +45,7 @@ namespace ngs\cms\loads {
      * @return array
      */
     public function getCmsActions(): array {
-      return ["edit", "delete"];
+      return ['edit', 'delete'];
     }
 
 
@@ -97,27 +97,27 @@ namespace ngs\cms\loads {
       $paramsBin = $this->getNgsListBinParams();
       $itemDtos = $manager->getList($paramsBin);
       $itemsCount = $manager->getItemsCount($paramsBin);
-      $this->addParam("itemDtos", $itemDtos);
-      $this->addParam("visibleFields", $this->getVisibleFieldsMethods());
-      $this->addParam("actions", $this->getCmsActions());
-      $this->addParam("itemDtosCount", $itemsCount);
-      $this->addJsonParam("listLoad", $this->getListLoad());
-      $this->addJsonParam("editLoad", $this->getEditLoad());
-      $this->addJsonParam("mainLoad", $this->getMainLoad());
-      $this->addJsonParam("activeMenu", $this->getActiveMenu());
-      $this->addJsonParam("deleteAction", $this->getDeleteAction());
-      $this->addJsonParam("bulkUpdateLoad", $this->getBulkUpdateLoad());
+      $this->addParam('itemDtos', $itemDtos);
+      $this->addParam('visibleFields', $this->getVisibleFieldsMethods());
+      $this->addParam('actions', $this->getCmsActions());
+      $this->addParam('itemDtosCount', $itemsCount);
+      $this->addJsonParam('listLoad', $this->getListLoad());
+      $this->addJsonParam('editLoad', $this->getEditLoad());
+      $this->addJsonParam('mainLoad', $this->getMainLoad());
+      $this->addJsonParam('activeMenu', $this->getActiveMenu());
+      $this->addJsonParam('deleteAction', $this->getDeleteAction());
+      $this->addJsonParam('bulkUpdateLoad', $this->getBulkUpdateLoad());
       $this->addSortingParams();
       if (NGS()->args()->parentId){
-        $this->addJsonParam("parentId", NGS()->args()->parentId);
+        $this->addJsonParam('parentId', NGS()->args()->parentId);
       }
-      if (NGS()->args()->search_key){
-        $this->addJsonParam("searchKey", NGS()->args()->search_key);
-      }
-      $this->addJsonParam("cms_manager", json_encode($this->getManager()));
+      $this->addJsonParam('cms_manager', json_encode($this->getManager()));
 
       $this->initPaging($itemsCount);
-
+      $jsParams = ['page' => $this->getCurrentPage(), 'limit' => $this->getLimit(), 'offset' => $this->getOffset(),
+        'pagesShowed' => $this->getPagesShowed(), 'ordering' => strtolower($paramsBin->getOrderBy()),
+        'sorting' => $paramsBin->getSortBy(), 'searchKey' => NGS()->args()->search_key];
+      $this->addJsonParam('pageParams', $jsParams);
       $this->afterCmsLoad($itemDtos, $itemsCount);
     }
 
@@ -129,8 +129,8 @@ namespace ngs\cms\loads {
      */
 
     private function getNgsListBinParams(): NgsCmsParamsBin {
-      NGS()->args()->ordering = NGS()->args()->ordering ? NGS()->args()->ordering : "DESC";
-      NGS()->args()->sorting = NGS()->args()->sorting ? NGS()->args()->sorting : "id";
+      NGS()->args()->ordering = NGS()->args()->ordering ? NGS()->args()->ordering : 'DESC';
+      NGS()->args()->sorting = NGS()->args()->sorting ? NGS()->args()->sorting : 'id';
       NGS()->args()->artistId = NGS()->args()->artistId ? NGS()->args()->artistId : null;
       $whereCondition = $this->getNgsWhereCondition();
       $joinCondition = $this->getJoinCondition();
@@ -158,11 +158,11 @@ namespace ngs\cms\loads {
     }
 
     private function addSortingParams() {
-      $this->addParam("sortingParam", [NGS()->args()->sorting => strtolower(NGS()->args()->ordering)]);
+      $this->addParam('sortingParam', [NGS()->args()->sorting => strtolower(NGS()->args()->ordering)]);
     }
 
     public function getBulkUpdateLoad() {
-      return "";
+      return '';
     }
 
     /**
@@ -173,18 +173,18 @@ namespace ngs\cms\loads {
     public abstract function getManager();
 
     private function getNgsWhereCondition(): string {
-      if ($this->getWhereCondition() != ""){
-        return " WHERE " . $this->getWhereCondition();
+      if ($this->getWhereCondition() != ''){
+        return ' WHERE ' . $this->getWhereCondition();
       }
-      return "";
+      return '';
     }
 
     public function getWhereCondition(): string {
-      return "";
+      return '';
     }
 
     public function getJoinCondition(): string {
-      return "";
+      return '';
     }
 
     protected function afterCmsLoad($itemDtos, $itemsCount): void {
@@ -201,7 +201,7 @@ namespace ngs\cms\loads {
      * @return string
      */
     public function getTemplate(): string {
-      return NGS()->getTemplateDir() . "/cms/list.tpl";
+      return NGS()->getTemplateDir('ngs-cms') . '/list.tpl';
     }
 
   }

@@ -79,6 +79,15 @@ namespace ngs\cms\loads {
       return true;
     }
 
+
+    public function getPermalink(): string {
+      return $this->getCmsPermalink();
+    }
+
+    public function getCmsPermalink(): string {
+      return "";
+    }
+
     public function getRequestGroup() {
       if (!NGS()->get("REQUEST_GROUP") === null){
         throw new NgsErrorException("please set in constats REQUEST_GROUP");

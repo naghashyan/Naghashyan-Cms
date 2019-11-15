@@ -1,0 +1,22 @@
+// Remove Focus Boxes
+select:focus {
+  outline: $select-focus;
+}
+
+button:focus {
+  outline: none;
+  background-color: $button-background-focus;
+}
+
+label {
+  font-size: $label-font-size;
+  color: $input-border-color;
+}
+
+@import '@ngs-cms/materialize/components/forms/_input-fields';
+@import '@ngs-cms/materialize/components/forms/_radio-buttons';
+@import '@ngs-cms/materialize/components/forms/_checkboxes';
+@import '@ngs-cms/materialize/components/forms/_switches';
+@import '@ngs-cms/materialize/components/forms/_select';
+@import '@ngs-cms/materialize/components/forms/_file-input';
+@import '@ngs-cms/materialize/components/forms/_range';

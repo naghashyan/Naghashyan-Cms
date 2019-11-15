@@ -1,0 +1,148 @@
+.modal {
+  &.bootstrap-dialog {
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    background: none;
+
+    & > .modal-dialog {
+      margin: auto;
+
+      .edit-box {
+        .edit-form {
+          max-width: 100%;
+        }
+      }
+    }
+
+    &.size-large {
+      & > .modal-dialog {
+        width: 900px;
+        top: 100px;
+      }
+    }
+
+    &.tracks-load {
+      & > .modal-dialog {
+        width: 1200px;
+
+
+        .add-track {
+          color: $lighten-6;
+        }
+      }
+    }
+
+    &.type-primary {
+      .modal-header {
+        background-color: $spec-1;
+      }
+    }
+
+    .modal-header {
+      border-bottom: none;
+      cursor: move;
+
+      .bootstrap-dialog-title {
+        color: $lighten-6;
+      }
+
+      .close {
+        float: right;
+        font-size: 40px;
+        font-weight: 300;
+        line-height: 24px;
+        color: $lighten-6;
+        text-shadow: none;
+        opacity: 1;
+      }
+
+      button {
+        &.close {
+          -webkit-appearance: none;
+          padding: 0;
+          cursor: pointer;
+          background: 0 0;
+          border: 0;
+        }
+      }
+
+    }
+
+    & > .modal-dialog {
+      & > .modal-content {
+        background-color: $base;
+        padding: 0;
+
+        .box {
+          padding: 0;
+
+          .edit-box {
+            margin: 0;
+          }
+        }
+
+        .form-content {
+          .added-items-box {
+            li {
+              margin-bottom: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+.modal {
+  &.ngs-modal {
+    background-color: transparent;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    position: fixed;
+    top: 0 !important;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    //pointer-events: none;
+
+    .edit-box {
+      pointer-events: auto;
+      max-width: 65%;
+      background-color: $primary-color;
+      margin: 100px auto 80px;
+      box-shadow: rgba(43, 124, 277, 0.4);
+      position: relative;
+    }
+
+    .form-action {
+      position: relative;
+      padding-top: 20px;
+      border-top: 1px solid rgba(43, 124, 277, 0.4);
+
+      &:before {
+        border-top: 1px solid rgba(43, 124, 277, 0.4);
+        position: absolute;
+        top: -1px;
+        left: -30px;
+        width: 30px;
+        content: '';
+      }
+
+      &:after {
+        border-top: 1px solid rgba(43, 124, 277, 0.4);
+        position: absolute;
+        top: -1px;
+        right: -30px;
+        width: 30px;
+        content: '';
+      }
+    }
+
+  }
+}

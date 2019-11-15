@@ -18,7 +18,7 @@ namespace ngs\cms\actions {
   use ngs\cms\managers\AbstractCmsManager;
   use ngs\exceptions\NgsErrorException;
 
-  abstract class CmsAddUpdateAction extends AbsctractCmsAction {
+  abstract class AbsctractAddUpdateAction extends AbsctractCmsAction {
 
     /**
      * return default action manager

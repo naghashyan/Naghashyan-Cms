@@ -16,9 +16,13 @@ namespace ngs\cms\loads {
 
   abstract class CmsLoad extends AbstractCmsLoad {
 
+    public function initialize() {
+      parent::initialize();
+      $this->addParentParam('activeMenu', $this->getActiveMenu());
+    }
 
     public function getTemplate() {
-      return NGS()->getTemplateDir() . '/cms/main_load.tpl';
+      return NGS()->getTemplateDir('ngs-cms') . '/main_load.tpl';
     }
 
     protected function getActiveMenu() {
@@ -30,16 +34,13 @@ namespace ngs\cms\loads {
       return null;
     }
 
-    public function getPermalink() {
-      return '';
-    }
 
     /**
      * returns js list page load
      * @return string
      */
     public function getListLoad(): string {
-      return 'ngs.cms.loads.list';
+      return 'ngs.cms.loads.cms_list';
     }
 
     /**

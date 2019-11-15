@@ -1,0 +1,18 @@
+.box {
+  padding: 5px 0;
+
+  h1 {
+    color: $secondary-color;
+    padding-left: 20px;
+
+    &.dashboard_header {
+      padding: 0 0 30px;
+      text-align: center;
+      margin-top: 0;
+    }
+  }
+
+  & > h1 {
+    text-align: center;
+  }
+}

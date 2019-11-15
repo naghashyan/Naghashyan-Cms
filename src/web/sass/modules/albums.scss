@@ -1,0 +1,71 @@
+.albums {
+  .art_info {
+    overflow: hidden;
+    margin-right: 20px;
+
+    .file-field {
+      margin: 0;
+    }
+  }
+}
+
+.album-tracks {
+  color: #ffffff;
+  display: table;
+
+  .track-header {
+    display: table-row;
+    color: #b3c4d8;
+    margin-bottom: 25px;
+    .track-cell {
+      padding-bottom: 15px;
+    }
+  }
+
+  .track-row {
+    margin-bottom: 10px;
+    display: table-row;
+
+    .track-artists {
+      min-width: 250px;
+    }
+
+    .track-actions,
+    .track-year {
+      min-width: 100px;
+    }
+  }
+
+  .track-cell {
+    display: table-cell;
+    padding: 0 10px;
+  }
+
+  .track-icons {
+    height: 25px;
+    width: 35px;
+    position: relative;
+    i {
+      cursor: pointer;
+      position: absolute;
+      opacity: 0.6;
+      &:hover {
+        opacity: 1;
+      }
+      &.delete-track {
+        left: 40px;
+        color: #dd5233;
+      }
+      &.save-track {
+        color: #52dd33;
+      }
+      &.upload-track {
+        left: 72px;
+      }
+    }
+
+    .upload-track-file {
+      display: none;
+    }
+  }
+}

@@ -23,7 +23,7 @@ namespace ngs\cms\loads {
 
 
     public function getTemplate() {
-      return NGS()->getTemplateDir() . "/cms/bulk_update.tpl";
+      return NGS()->getTemplateDir('ngs-cms') . "/bulk_update.tpl";
     }
 
     /**

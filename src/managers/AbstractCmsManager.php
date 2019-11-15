@@ -2,12 +2,12 @@
 /**
  * CmsManager manager class
  *
- * @author Mikael Mkrtchyan
- * @site http://naghashyan.com
+ * @author Mikael Mkrtchyan, Levon Naghashyan
+ * @site https://naghashyan.com
  * @mail miakel.mkrtchyan@naghashyan.com
- * @year 2017
- * @package admin.managers
- * @version 7.0.0
+ * @year 2017-2019
+ * @package ngs.cms.managers
+ * @version 2.0.0
  *
  */
 
@@ -50,7 +50,7 @@ namespace ngs\cms\managers {
      * @param array $params
      * @return mixed
      */
-    public function updateItem($itemId, array $params) {
+    public function updateItem(int $itemId, array $params) {
       $itemDto = $this->getMapper()->createDto();
       $itemDto->fillDtoFromArray($params);
       $itemDto->setId($itemId);
