@@ -49,28 +49,6 @@ namespace ngs\cms\actions {
     protected function afterCmsBulkService($resultAfterCmsService) {
 
     }
-
-    protected function addPagingParameters() {
-      $result = [];
-      $page = NGS()->args()->page ? NGS()->args()->page : 1;
-      $result["page"] = $page;
-      if(NGS()->args()->limit) {
-        $result["limit"] = NGS()->args()->limit;
-      }
-      if(NGS()->args()->search_key) {
-        $result["search_key"] = NGS()->args()->search_key;
-      }
-      if(NGS()->args()->sorting) {
-        $result["sorting"] = NGS()->args()->sorting;
-      }
-      if(NGS()->args()->ordering) {
-        $result["ordering"] = NGS()->args()->ordering;
-      }
-      if(NGS()->args()->parentId) {
-        $result["parentId"] = NGS()->args()->parentId;
-      }
-      $this->addParam("afterActionParams",$result);
-    }
   }
 
 }

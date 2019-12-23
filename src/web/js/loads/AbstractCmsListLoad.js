@@ -55,9 +55,6 @@ export default class AbstractListLoad extends AbstractLoad {
       let itemId = event.currentTarget.attr('data-im-id');
       let params = this._getNgsParams();
       params.itemId = itemId;
-      if(this.args().parentId){
-        params.parentId = this.args().parentId;
-      }
       NGS.load(this.args().editLoad, params);
     });
   }
@@ -206,10 +203,12 @@ export default class AbstractListLoad extends AbstractLoad {
 
   _getNgsParams() {
     let params = {};
-
     params = Object.assign(params, PageManager.getPageParams());
     params = Object.assign(this.getFilterParams(), params);
     params = this.getAdditionalParams(params);
+    if(this.args().parentId){
+      params.parentId = this.args().parentId;
+    }
     return params;
   }
 

@@ -48,7 +48,7 @@ namespace ngs\cms\loads {
      * @return string
      */
     public function getAddLoad(): string {
-      return null;
+      return '';
     }
 
     /**
@@ -56,7 +56,7 @@ namespace ngs\cms\loads {
      * @return string
      */
     public function getMainLoad(): string {
-      return null;
+      return '';
     }
 
     /**
@@ -64,7 +64,7 @@ namespace ngs\cms\loads {
      * @return string
      */
     public function getEditLoad(): string {
-      return null;
+      return '';
     }
 
     /**
@@ -72,7 +72,7 @@ namespace ngs\cms\loads {
      * @return string
      */
     public function getDeleteAction(): string {
-      return null;
+      return '';
     }
 
     public function getDefaultLoads() {

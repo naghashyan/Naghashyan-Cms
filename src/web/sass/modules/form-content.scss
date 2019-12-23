@@ -23,6 +23,32 @@
     }
   }
 
+  .form-content-item-wrapper {
+    background-color: $color1;
+    position: relative;
+    min-height: 220px;
+
+    &:before {
+      position: absolute;
+      width: 30px;
+      height: 100%;
+      background-color: $color1;
+      content: '';
+      top: 0;
+      left: 100%;
+    }
+
+    &:after {
+      position: absolute;
+      width: 30px;
+      height: 100%;
+      background-color: $color1;
+      content: '';
+      top: 0;
+      right: 100%;
+    }
+  }
+
   .form-content-item {
     position: relative;
 
@@ -34,6 +60,34 @@
       margin-right: 2%;
     }
 
+
+    .form-item-tabs {
+      background: transparent;
+      margin-bottom: 30px;
+
+
+      .indicator {
+        background-color: $spec-1;
+      }
+
+      .tab {
+        a {
+          color: $border-color15;
+          background: none;
+
+          &.active {
+            color: $spec-1;
+          }
+        }
+      }
+    }
+
+    .time-selected-items {
+      .chip {
+        background-color: $text-color12;
+        color: $text-color2;
+      }
+    }
   }
 
   .form-content-count-2 {
@@ -42,6 +96,18 @@
       width: 48%;
       margin-right: 2%;
     }
+
+    &.form-content-item-ratio-2-3 {
+      .form-item {
+        &:first-child {
+          width: 31%;
+        }
+
+        &:last-child {
+          width: 64%;
+        }
+      }
+    }
   }
 
   .form-content-count-3,
@@ -49,7 +115,7 @@
   .form-content-count-6 {
     .form-item {
       float: left;
-      width: 31%;
+      width: 31.333%;
       margin-right: 2%;
     }
   }

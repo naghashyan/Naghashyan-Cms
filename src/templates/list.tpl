@@ -6,7 +6,17 @@
         <div class="horizontal">
             <form id="cmsFilterBox">
                 {block name="cms-filter-section"}
+                    <div class="filter-section">
+                        {block name="cms-filter-content"}
 
+                        {/block}
+                        {block name="cms-filter-btn" hide}
+                            <button class="btn-floating btn-large waves-effect waves-light green" type="submit"
+                                    id="filterBtn">
+                                <i class="material-icons">filter_list</i>
+                            </button>
+                        {/block}
+                    </div>
                 {/block}
             </form>
             {block name="cms-bulk-action"}
@@ -22,6 +32,8 @@
                     <ul id="gridHeader" class="table-row table-head">
                         {block name="cms-list-header-chechbox-content"}
 
+                        {/block}
+                        {block name="cms-list-header-additional-before"}
                         {/block}
                         {foreach from=$ns.visibleFields key=field item=fieldInfo}
                             <li id="{$fieldInfo["data_field_name"]}"
@@ -45,7 +57,11 @@
                 {block name="cms-list-content"}
                     <div id="itemsContent" class="table-row-group">
                         {foreach from=$ns.itemDtos item=itemDto name=itemDto}
-                            <ul class="table-row f_table-row" data-im-id="{{$itemDto->getId()}}">
+                            <ul class="table-row {block name="cms-list-content-row-class"}{/block} {if $itemDto->getStatus() AND $itemDto->getStatus() == 'inactive'} inactive {/if}"
+                                data-im-id="{$itemDto->getId()}">
+                                {block name="cms-list-content-additional-before"}
+
+                                {/block}
                                 {block name="cms-list-content-chechbox-content"}
 
                                 {/block}
@@ -76,14 +92,14 @@
                                             {foreach from=$ns.actions item=action name=action}
                                                 <button class="action-btn {$action}-btn f_{$action}_btn"
                                                         data-im-id="{$itemDto->getId()}">
-                                                    <i class="large material-icons">{if $action == "play" }play_arrow{elseif $action == "reject"}cancel{elseif $action == "delete"}delete{elseif $action == "edit"}edit{elseif $action == "approve"}check_circle{elseif $action == "tracks"}music_note{else}visibility{/if}</i> {$action}
+                                                    <i class="large material-icons">{if $action == "play" }play_arrow{elseif $action == "reject"}cancel{elseif $action == "delete"}delete{elseif $action == "edit"}edit{elseif $action == "approve"}check_circle{elseif $action == "tracks"}music_note{elseif $action == "events"}event{else}visibility{/if}</i> {$action}
                                                 </button>
                                             {/foreach}
                                         </div>
                                         <div class="buttons-tmp">
                                             {foreach from=$ns.actions item=action name=action}
                                                 <button class="action-btn {$action}-btn">
-                                                    <i class="large material-icons">{if $action == "play" }play_arrow{elseif $action == "reject"}cancel{elseif $action == "delete"}delete{elseif $action == "edit"}edit{elseif $action == "approve"}check_circle{elseif $action == "tracks"}music_note{else}visibility{/if}</i> {$action}
+                                                    <i class="large material-icons">{if $action == "play" }play_arrow{elseif $action == "reject"}cancel{elseif $action == "delete"}delete{elseif $action == "edit"}edit{elseif $action == "approve"}check_circle{elseif $action == "tracks"}music_note{elseif $action == "events"}event{else}visibility{/if}</i> {$action}
                                                 </button>
                                             {/foreach}
                                         </div>

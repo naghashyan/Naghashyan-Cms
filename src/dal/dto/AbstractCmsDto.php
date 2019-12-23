@@ -43,9 +43,12 @@ namespace ngs\cms\dal\dto {
       foreach ($this->mapArray as $key => $value){
         if (isset($value['visible']) && $value['visible']){
           $result[$value['field_name']] = ['type' => $value['type'], 'display_name' => $value['display_name'],
-            'data_field_name' => $key, 'sortable' => false];
+            'data_field_name' => $key, 'sortable' => false, 'default_value' => null];
           if (isset($value['sortable']) && $value['sortable'] === true){
             $result[$value['field_name']]['sortable'] = true;
+          }
+          if (isset($value['default_value'])){
+            $result[$value['field_name']]['default_value'] = $value['default_value'];
           }
         }
 
@@ -93,6 +96,7 @@ namespace ngs\cms\dal\dto {
             'display_name' => $value['display_name'],
             'data_field_name' => $key,
             'group_name' => isset($value['group_name']) ? $value['group_name'] : $value['display_name'],
+            'default_value' => isset($value['default_value']) ? $value['default_value'] : null,
             'required' => isset($value['required_in']) && in_array($type, $value['required_in']) ? true : false
           ];
         }

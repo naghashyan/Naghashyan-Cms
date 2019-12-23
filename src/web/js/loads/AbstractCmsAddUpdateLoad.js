@@ -50,7 +50,6 @@ export default class AbstractCmsAddUpdateLoad extends AbstractLoad {
     this.hideHeaderAddButton();
   }
 
-
   modifyParentRedirect() {
     if(Object.keys(this.setCancelParams()).length){
       var parentRedirect = $("#main_container").find(".f_redirect").last();
@@ -90,6 +89,9 @@ export default class AbstractCmsAddUpdateLoad extends AbstractLoad {
       }
       let formData = new FormData(formElem);
       formData = this.beforeSave(formData);
+      if(formData === false){
+        return false;
+      }
       if(this.args().parentId){
         formData.append('parentId', this.args().parentId);
       }
@@ -139,6 +141,29 @@ export default class AbstractCmsAddUpdateLoad extends AbstractLoad {
 
   getMethod() {
     return "GET";
+  }
+
+  validateStartEndDate(dateStart, dateEnd, format) {
+    let dateTimeStart = dateStart ? moment(dateStart, format) : null;
+    let dateTimeEnd = dateEnd ? moment(dateEnd, format) : null;
+    return !(dateTimeStart && dateTimeEnd && dateTimeEnd.isBefore(dateTimeStart));
+  }
+
+  showError(elem, msg) {
+    this.hideError(elem);
+    elem.addClass('invalid');
+    elem.addClass('ngs');
+    elem.parentNode.insertAdjacentHTML('beforeend', "<div class='ilyov_validate'>" + msg + "</div>");
+  }
+
+  hideError(elem) {
+    elem.removeClass('invalid');
+    elem.addClass('ngs');
+    let errorElement = elem.parentNode.getElementsByClassName('ilyov_validate');
+    if(errorElement.length === 0){
+      return;
+    }
+    errorElement[0].remove();
   }
 
 }

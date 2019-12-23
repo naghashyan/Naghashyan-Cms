@@ -285,13 +285,15 @@ form {
 }
 
 
-
-
-
-
-
-
-
+#toast-container {
+  display:block;
+  position: fixed;
+  z-index: 10000;
+  top: 40%;
+  right: auto;
+  left: 50%;
+  transform: translate(-50%, -30%);
+}
 
 
 

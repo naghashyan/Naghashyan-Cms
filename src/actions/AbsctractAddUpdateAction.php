@@ -88,27 +88,6 @@ namespace ngs\cms\actions {
       $this->afterService($itemDto);
     }
 
-    protected function addPagingParameters() {
-      $result = [];
-      $page = NGS()->args()->page ? NGS()->args()->page : 1;
-      $result['page'] = $page;
-      if (NGS()->args()->limit){
-        $result['limit'] = NGS()->args()->limit;
-      }
-      if (NGS()->args()->search_key){
-        $result['search_key'] = NGS()->args()->search_key;
-      }
-      if (NGS()->args()->sorting){
-        $result['sorting'] = NGS()->args()->sorting;
-      }
-      if (NGS()->args()->ordering){
-        $result['ordering'] = NGS()->args()->ordering;
-      }
-      if (NGS()->args()->parentId){
-        $result['parentId'] = NGS()->args()->parentId;
-      }
-      $this->addParam('afterActionParams', $result);
-    }
 
     /**
      * called after service function, gets in parameter deleted item DTO
@@ -145,11 +124,14 @@ namespace ngs\cms\actions {
         $fieldName = $methodValue['data_field_name'];
 
         $value = NGS()->args()->$fieldName;
-        if ($methodValue['required'] && !trim($value)){
+        if (is_string($value)){
+          $value = trim($value);
+        }
+        if ($methodValue['required'] && !$value){
           $fieldDisplayName = $methodValue['display_name'];
           throw new NgsErrorException($fieldDisplayName . ' field is required!');
         }
-        if ($methodValue['type'] === 'number' && trim($value) && !is_numeric($value)){
+        if ($methodValue['type'] === 'number' && $value && !is_numeric($value)){
           throw new NgsErrorException($key . ' field should be number!');
         }
         if (!$value || $value === ''){
@@ -183,7 +165,7 @@ namespace ngs\cms\actions {
       return $updateArr;
     }
 
-    public function getAdditionalParams() {
+    public function getAdditionalParams(): array {
       return [];
     }
 

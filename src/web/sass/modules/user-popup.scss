@@ -254,20 +254,19 @@
   overflow: hidden;
   width: 100%;
   max-width: 530px;
-  background-color: $theme-color2;
-  color: $text-color1;
+  background-color: $color3;
+  color: $color2;
   border: 1px solid $border-color4;
 
   .user-box-header {
     padding: 17px 20px 17px 30px;
-    background-color: $theme-color7;
+    background-color: $primary-color;
 
     span {
       font-size: 18px;
       line-height: 15px;
     }
     .close-btn {
-      border: 3px solid $border-color10;
       border-radius: 50%;
       float: right;
       font-size: 12px;
@@ -277,12 +276,11 @@
       text-align: center;
       width: 22px;
       position: relative;
-      color: $text-color3;
+      color: $color2;
       i {
         font-size: 16px;
       }
       &:hover {
-        border-color: $border-color2;
         color: $text-color1;
       }
     }

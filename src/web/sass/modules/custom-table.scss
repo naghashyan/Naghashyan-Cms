@@ -502,6 +502,13 @@
             background-color: darken($spec-1, 5%);
           }
         }
+        &.events-btn {
+          background-color: $spec-5;
+
+          &:hover {
+            background-color: darken($spec-5, 5%);
+          }
+        }
         &.delete-btn {
           background-color: $spec-3;
 

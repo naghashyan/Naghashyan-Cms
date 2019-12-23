@@ -1,6 +1,9 @@
+import MaterialDatetimePicker from '../lib/material-datetime-picker.min.js';
+
 let MaterialsUtils = {
   modalInstance: null,
   initMaterialElements: function (container) {
+    M.Toast.dismissAll();
     if(M.updateTextFields){
       M.updateTextFields();
     }
@@ -8,7 +11,7 @@ let MaterialsUtils = {
     if(mTextAreas.length > 0){
       M.textareaAutoResize(mTextAreas);
     }
-    M.FormSelect.init(document.querySelectorAll('select'));
+    M.FormSelect.init(document.querySelectorAll('select'), {gago: null});
     this.setTimeToPickers(container);
   },
   setTimeToPickers: function (container) {
@@ -31,11 +34,23 @@ let MaterialsUtils = {
     if(timepickerElems.length > 0){
       timepickerElems.timepicker({
         default: 'now',
-        twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
+        twelveHour: false, // change to 12 hour AM/PM clock from 24 hour
         donetext: 'OK',
         format: "HH:ii:SS",
-        autoclose: false,
+        autoClose: false,
         vibrate: true
+      });
+    }
+    var datatimepickerElems = $('#' + container + ' .datetimepicker');
+    if(datatimepickerElems.length > 0){
+      const picker = new MaterialDatetimePicker()
+        .on('submit', function (val) {
+          this.el.value = val.format('D MMMM YYYY HH:mm:SS');
+        });
+
+      datatimepickerElems.click(function (evt) {
+        picker.el = evt.currentTarget;
+        picker.open() || picker.set(moment().startOf('day'));
       });
     }
   },
@@ -56,11 +71,44 @@ let MaterialsUtils = {
     this.modalInstance.options.onCloseEnd = function () {
       document.removeEventListener('keyup', customDismissible);
       this.modalInstance = null;
+      M.Toast.dismissAll();
     }.bind(this);
     return this.modalInstance;
   },
   getActiveModalInstance: function () {
     return this.modalInstance;
+  },
+  confirmDialog: function (title = '') {
+    if(title === ''){
+      title = 'Are you sure?';
+    }
+    return new Promise(function (resolve, reject) {
+
+      let cancel = function () {
+        M.Toast.dismissAll();
+        reject();
+      };
+      let okHandler = function () {
+        M.Toast.dismissAll();
+        resolve();
+      };
+      let toastContent = `<div><span>${title}</span>
+                        <button class="btn-flat toast-action red-text f_btn" data-im-type="yes">Yes</button>
+                        <button class="btn-flat toast-action green-text f_btn" data-im-type="no">No</button></div>`;
+      M.toast({
+        html: toastContent,
+        displayLength: 10000,
+        classes: 'cms-dialog'
+      }).el.querySelectorAll(".f_btn").click(function () {
+        if(this.attr("data-im-type") === 'yes'){
+          okHandler();
+          return;
+        }
+        cancel();
+      });
+    });
+
+
   }
 };
 export default MaterialsUtils;

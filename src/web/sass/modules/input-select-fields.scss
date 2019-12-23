@@ -72,7 +72,7 @@ input[type="tel"]:focus:not(.browser-default):not([readonly]) + label,
 input[type="number"]:focus:not(.browser-default):not([readonly]) + label,
 input[type="search"]:focus:not(.browser-default):not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
-  color: $lighten-3;
+  color: $color2;
 }
 
 input:disabled:not([type]),
@@ -103,6 +103,11 @@ input[type="search"][readonly="readonly"]:not(.browser-default),
 textarea.materialize-textarea[readonly="readonly"] {
   color: $base;
   border-bottom-color: $base;
+}
+
+.select-wrapper > input.select-dropdown {
+  box-sizing: border-box;
+  padding-right: 30px;
 }
 
 .input-field {
