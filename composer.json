@@ -1,7 +1,7 @@
 {
-  "name": "naghashyan/ngs-php-cms",
+  "name": "naghashyan/ngs-cms",
   "type": "library",
-  "description": "The Naghashyan PHP framework",
+  "description": "NGS CMS",
   "keywords": [
     "framework",
     "csm"

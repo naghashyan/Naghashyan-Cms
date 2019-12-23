@@ -1,0 +1,32 @@
+{
+  "builders": [
+    {
+      "include": "ngs"
+    },
+    {
+      "source_dir": "",
+      "out_dir": "ngs/cms",
+      "module": "ngs-cms",
+      "files": [
+        "actions/AbstractAddUpdateAction.js",
+        "actions/AbstractDeleteAction.js",
+        "loads/AbstractCmsAddUpdateLoad.js",
+        "loads/AbstractCmsListLoad.js",
+        "loads/AbstractCmsLoad.js",
+        "loads/CmsListLoad.js",
+        "loads/MainCmsLoad.js",
+        "lib/jquery.min.js",
+        "lib/materialize.min.js",
+        "lib/moment.min.js",
+        "lib/rome.js",
+        "lib/material-datetime-picker.min.js",
+        "util/MaterialsUtils.js",
+        "util/DialogUtility.js",
+        "util/NgsFormValidator.js",
+        "managers/PagingManager.js",
+        "managers/GridManager.js",
+        "managers/PageManager.js"
+      ]
+    }
+  ]
+}
