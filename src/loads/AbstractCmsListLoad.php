@@ -84,6 +84,12 @@ namespace ngs\cms\loads {
     public abstract function getMainLoad(): string;
 
     /**
+     * returns js export load
+     * @return string
+     */
+    public abstract function getExportLoad(): string;
+
+    /**
      * returns js delete item action
      * @return string
      */
@@ -104,6 +110,7 @@ namespace ngs\cms\loads {
       $this->addJsonParam('listLoad', $this->getListLoad());
       $this->addJsonParam('editLoad', $this->getEditLoad());
       $this->addJsonParam('mainLoad', $this->getMainLoad());
+      $this->addJsonParam('exportLoad', $this->getExportLoad());
       $this->addJsonParam('activeMenu', $this->getActiveMenu());
       $this->addJsonParam('deleteAction', $this->getDeleteAction());
       $this->addJsonParam('bulkUpdateLoad', $this->getBulkUpdateLoad());
@@ -111,8 +118,6 @@ namespace ngs\cms\loads {
       if (NGS()->args()->parentId){
         $this->addJsonParam('parentId', NGS()->args()->parentId);
       }
-      $this->addJsonParam('cms_manager', json_encode($this->getManager()));
-
       $this->initPaging($itemsCount);
       $jsParams = ['page' => $this->getCurrentPage(), 'limit' => $this->getLimit(), 'offset' => $this->getOffset(),
         'pagesShowed' => $this->getPagesShowed(), 'ordering' => strtolower($paramsBin->getOrderBy()),
@@ -131,15 +136,12 @@ namespace ngs\cms\loads {
     private function getNgsListBinParams(): NgsCmsParamsBin {
       NGS()->args()->ordering = NGS()->args()->ordering ? NGS()->args()->ordering : 'DESC';
       NGS()->args()->sorting = NGS()->args()->sorting ? NGS()->args()->sorting : 'id';
-      NGS()->args()->artistId = NGS()->args()->artistId ? NGS()->args()->artistId : null;
-      $whereCondition = $this->getNgsWhereCondition();
       $joinCondition = $this->getJoinCondition();
       $paramsBin = new NgsCmsParamsBin();
       $paramsBin->setSortBy(NGS()->args()->sorting);
       $paramsBin->setOrderBy(NGS()->args()->ordering);
       $paramsBin->setLimit($this->getLimit());
       $paramsBin->setOffset($this->getOffset());
-      //$paramsBin->setWhereCondition($whereCondition);
       $paramsBin->setJoinCondition($joinCondition);
       $paramsBin = $this->modifyNgsListBinParams($paramsBin);
       return $paramsBin;
@@ -172,12 +174,6 @@ namespace ngs\cms\loads {
      */
     public abstract function getManager();
 
-    private function getNgsWhereCondition(): string {
-      if ($this->getWhereCondition() != ''){
-        return ' WHERE ' . $this->getWhereCondition();
-      }
-      return '';
-    }
 
     public function getWhereCondition(): string {
       return '';
@@ -193,7 +189,6 @@ namespace ngs\cms\loads {
     }
 
     protected function beforeLoad(): void {
-
 
     }
 

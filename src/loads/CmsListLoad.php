@@ -25,6 +25,7 @@ namespace ngs\cms\loads {
     private $deleteAction;
     private $manager;
     private $mainLoad;
+    private $exportLoad;
     private $activeMenu;
 
     public function initialize() {
@@ -34,6 +35,7 @@ namespace ngs\cms\loads {
       $this->editLoad = NGS()->args()->editLoad;
       $this->deleteAction = NGS()->args()->deleteAction;
       $this->mainLoad = NGS()->args()->mainLoad;
+      $this->exportLoad = NGS()->args()->exportLoad;
       $this->manager = NGS()->args()->manager;
       $this->activeMenu = NGS()->args()->activeMenu;
     }
@@ -69,6 +71,15 @@ namespace ngs\cms\loads {
      */
     public function getMainLoad(): string {
       return $this->mainLoad;
+    }
+
+
+    /**
+     * returns js export load
+     * @return string
+     */
+    public function getExportLoad(): string {
+      return $this->exportLoad;
     }
 
     /**

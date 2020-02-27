@@ -105,6 +105,10 @@ textarea.materialize-textarea[readonly="readonly"] {
   border-bottom-color: $base;
 }
 
+.datepicker-modal .select-wrapper > input.select-dropdown {
+  padding-right: 0;
+}
+
 .select-wrapper > input.select-dropdown {
   box-sizing: border-box;
   padding-right: 30px;
@@ -205,6 +209,17 @@ textarea.materialize-textarea[readonly="readonly"] {
 
 .dropdown-content {
   background-color: $lighten-3;
+
+  .input-field {
+    background: transparent !important;
+    padding: 0 20px;
+    margin-top: 20px;
+    display: block !important;
+
+    label {
+      left: 35px;
+    }
+  }
 
   li {
     a {

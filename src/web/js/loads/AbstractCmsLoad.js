@@ -56,13 +56,17 @@ export default class AbstractCmsLoad extends AbstractLoad {
         if(element.attr('params')){
           params = JSON.parse(element.attr('params'));
         }
-        NGS.load(target.attr('data-im-load'), params);
+        NGS.load(element.attr('data-im-load'), params);
       });
     });
   }
 
   initSearch() {
-    document.getElementById('glbSearch').addEventListener('submit', evt => {
+    let glbSearchElem = document.getElementById('glbSearch');
+    if(!glbSearchElem){
+      return glbSearchElem;
+    }
+    glbSearchElem.addEventListener('submit', evt => {
       evt.preventDefault();
       let searchKey = document.getElementById('searchKey').value.trim();
       if(searchKey.length < 1){

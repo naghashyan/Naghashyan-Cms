@@ -177,7 +177,7 @@
   }
 }
 
-@media screen  and (max-width: $phoneWidthLarge){
+@media screen  and (max-width: $desktopWidthSmall){
   .page-info {
     display: block;
 
@@ -190,6 +190,7 @@
       display: block;
       padding: 0;
       line-height: 30px;
+      white-space: normal;
     }
   }
 }

@@ -1,5 +1,6 @@
 import AbstractAction from "../../AbstractAction.js";
 import DialogUtility from '../../../ngs/cms/util/DialogUtility.js';
+import MaterialsUtils from "../util/MaterialsUtils.js";
 
 export default class AbstractDeleteAction extends AbstractAction {
 
@@ -16,15 +17,13 @@ export default class AbstractDeleteAction extends AbstractAction {
   }
 
   onError(params) {
-    DialogUtility.showErrorDialog(params.msg);
+    M.toast({html: params.msg, displayLength: 2500, classes: 'ngs-error-toast'})
   }
 
 
-  afterAction(transport) {
-    let dialog = $("#modal");
-    if(dialog && dialog.length){
-      dialog.dialog();
-      dialog.dialog("close");
+  afterAction() {
+    if(MaterialsUtils.getActiveModalInstance()){
+      MaterialsUtils.getActiveModalInstance().close();
     }
     NGS.load(this.args().afterActionLoad, this.args().afterActionParams);
   }

@@ -12,7 +12,7 @@
 body {
   background-color: $color6;
   height: auto;
-  min-width: 1024px;
+  //min-width: 1024px;
 }
 
 html {
@@ -35,6 +35,10 @@ html {
 
 .horizontal {
   overflow-x: auto;
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 .horizontal::-webkit-scrollbar {
@@ -250,6 +254,11 @@ select {
   .caret {
     fill: $lighten-1;
   }
+
+  .dropdown-content {
+    z-index: 3;
+    max-height: 400px;
+  }
 }
 
 form {
@@ -272,7 +281,7 @@ form {
 -------------------------------------- */
 
 .filter-section {
-  float: right;
+  //float: right;
   text-align: right;
 
   .input-field {
@@ -281,6 +290,11 @@ form {
   }
   button {
     display: inline-block;
+  }
+
+  .buttons-block {
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 

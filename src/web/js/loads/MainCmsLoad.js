@@ -1,6 +1,6 @@
 import AbstractLoad from '../../AbstractLoad.js';
 import DialogUtility from '../util/DialogUtility.js';
-
+import M from '../lib/materialize.min.js';
 export default class MainCmsLoad extends AbstractLoad {
 
   constructor() {

@@ -118,6 +118,11 @@
       margin: 100px auto 80px;
       box-shadow: rgba(43, 124, 277, 0.4);
       position: relative;
+      transition: max-width 0.3s;
+
+      @media screen and (max-width: $tabletWidthSmall) {
+        max-width: 94%;
+      }
     }
 
     .form-action {

@@ -8,7 +8,6 @@ let PagingManager = {
   init: function (callBack) {
     let pagingBox = document.getElementById("f_pageingBox");
     if(!pagingBox){
-      callBack(false);
       return;
     }
     let currentPage = parseInt(pagingBox.getAttribute("data-im-page"));

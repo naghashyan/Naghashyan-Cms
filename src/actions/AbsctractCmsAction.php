@@ -51,6 +51,14 @@ namespace ngs\cms\actions {
       return NGS()->get("REQUEST_GROUP");
     }
 
+    public function loggerActionStart($params) {
+
+    }
+
+    public function loggerActionEnd($dto = null) {
+
+    }
+
   }
 
 }

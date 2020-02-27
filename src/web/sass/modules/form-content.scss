@@ -304,3 +304,38 @@
   }
 }
 
+
+
+@media screen and (max-width: $tabletWidth) {
+  .form-content {
+    .form-group {
+      display: block;
+
+      .input-field, .element-field {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+      }
+    }
+
+    .form-content-count-4,
+    .form-content-count-7,
+    .form-content-count-8 {
+      .form-item {
+        width: 30%;
+      }
+    }
+  }
+
+  .file-field {
+    .btn, .btn-large, .btn-small {
+      float: none;
+      height: auto;
+      padding: 0 15px;
+    }
+
+    .file-path-wrapper {
+      padding-left: 0;
+    }
+  }
+}

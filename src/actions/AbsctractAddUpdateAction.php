@@ -77,22 +77,25 @@ namespace ngs\cms\actions {
       if (NGS()->args()->id){
         $params = $this->getRequestParameters('edit');
         $params = $this->beforeService($params);
+        $this->loggerActionStart($params, NGS()->args()->id);
         $itemDto = $manager->updateItem(NGS()->args()->id, $params);
       } else{
         $params = $this->getRequestParameters('add');
+        $this->loggerActionStart($params);
         $params = $this->beforeService($params);
         $itemDto = $manager->createItem($params);
       }
       $this->addParam('afterActionLoad', $this->getAfterActionLoad());
       $this->addPagingParameters();
       $this->afterService($itemDto);
+      $this->loggerActionEnd($itemDto);
     }
 
 
     /**
      * called after service function, gets in parameter deleted item DTO
      *
-     * @param $itemDto
+     * @param AbstractCmsDto $itemDto
      */
     public function afterService($itemDto): void {
 
@@ -134,12 +137,12 @@ namespace ngs\cms\actions {
         if ($methodValue['type'] === 'number' && $value && !is_numeric($value)){
           throw new NgsErrorException($key . ' field should be number!');
         }
-        if (!$value || $value === ''){
-          $updateArr[$key] = 'NULL';
-          continue;
-        }
         if ($methodValue['type'] === 'checkbox'){
           $value = $value === 'on' ? 1 : 0;
+        }
+        if (is_null($value) || $value === ''){
+          $updateArr[$key] = 'NULL';
+          continue;
         }
         if ($methodValue['type'] === 'date'){
           $format = 'd F Y';

@@ -322,9 +322,11 @@ namespace ngs\cms\dal\binparams {
       $operator = ' ';
       foreach ($this->whereCondition as $key => $value){
         $_value = $value['value'];
-        if (is_string($_value)){
+        // TODO: check other conditions
+        if ($_value && is_string($_value) && !in_array($value['comparison'], ['in'])){
           $_value = ' \'' . $_value . '\' ';
         }
+
         $whereConditionSql .= $operator . $value['field'].' ' . $value['comparison'] . $_value;
         $operator = ' ' . $value['operator'] . ' ';
       }
@@ -333,7 +335,7 @@ namespace ngs\cms\dal\binparams {
 
     private $defaultOperators = ['and' => true, 'or' => true, 'not' => true];
     private $defaultComparisons = ['=' => true, '<>' => true, '!=' => true, '>' => true, '>=' => true, '<' => true,
-      '<=' => true, 'is null' => true, 'is not null=' => true, 'like' => true, 'exists' => true, 'in' => true, 'not' => true];
+      '<=' => true, 'is null' => true, 'is not null' => true, 'like' => true, 'exists' => true, 'in' => true, 'not' => true];
 
 
     /**
@@ -359,7 +361,7 @@ namespace ngs\cms\dal\binparams {
       if (!$fieldArr['dto']->isExsistField($fieldArr['field'])){
         throw new DebugException($fieldArr['field'] . 'fieald not exist in dto');
       }
-      $field = '`' . $fieldArr['dto']->getTableName() . '`.' . '`' . $fieldArr['field'] . '`';
+      $field = $fieldArr['dto']->getTableName() . '.' . '`' . $fieldArr['field'] . '`';
       $this->whereCondition[] = ['field' => $field, 'value' => $value, 'operator' => $operator, 'comparison' => $comparison];
     }
 

@@ -3,22 +3,22 @@
 
     {/block}
     <div class="action-tables table-box">
-        <div class="horizontal">
-            <form id="cmsFilterBox">
-                {block name="cms-filter-section"}
-                    <div class="filter-section">
-                        {block name="cms-filter-content"}
+        <form id="cmsFilterBox">
+            {block name="cms-filter-section"}
+                <div class="filter-section">
+                    {block name="cms-filter-content"}
 
-                        {/block}
-                        {block name="cms-filter-btn" hide}
-                            <button class="btn-floating btn-large waves-effect waves-light green" type="submit"
-                                    id="filterBtn">
-                                <i class="material-icons">filter_list</i>
-                            </button>
-                        {/block}
-                    </div>
-                {/block}
-            </form>
+                    {/block}
+                    {block name="cms-filter-btn" hide}
+                        <button class="btn-floating btn-large waves-effect waves-light green" type="submit"
+                                id="filterBtn">
+                            <i class="material-icons">filter_list</i>
+                        </button>
+                    {/block}
+                </div>
+            {/block}
+        </form>
+        <div class="horizontal">
             {block name="cms-bulk-action"}
                 {*
                 <button class="waves-effect waves-light btn float-left" type="button" id="doBulkAction">Bulk Update
@@ -30,10 +30,11 @@
             <div class="table bordered_t action_t {block name="cms-table-additional-classes"}{/block}">
                 {block name="cms-list-header"}
                     <ul id="gridHeader" class="table-row table-head">
+
+                        {block name="cms-list-header-additional-before"}
+                        {/block}
                         {block name="cms-list-header-chechbox-content"}
 
-                        {/block}
-                        {block name="cms-list-header-additional-before"}
                         {/block}
                         {foreach from=$ns.visibleFields key=field item=fieldInfo}
                             <li id="{$fieldInfo["data_field_name"]}"
@@ -57,7 +58,7 @@
                 {block name="cms-list-content"}
                     <div id="itemsContent" class="table-row-group">
                         {foreach from=$ns.itemDtos item=itemDto name=itemDto}
-                            <ul class="table-row {block name="cms-list-content-row-class"}{/block} {if $itemDto->getStatus() AND $itemDto->getStatus() == 'inactive'} inactive {/if}"
+                            <ul class="table-row f_table_row {block name="cms-list-content-row-class"}{/block} {if $itemDto->getStatus() AND $itemDto->getStatus() == 'inactive'} inactive {/if}"
                                 data-im-id="{$itemDto->getId()}">
                                 {block name="cms-list-content-additional-before"}
 
@@ -78,7 +79,7 @@
                                             <div class="description-inner">{$itemDto->$field()|strip_tags}</div>
                                         </li>
                                     {else}
-                                        <li>
+                                        <li class="f_{$field|replace:'get':''}">
                                             {$itemDto->$field()}
                                         </li>
                                     {/if}
@@ -87,19 +88,20 @@
                                     <li class="mobile-view">
                                         Actions
                                     </li>
-                                    <li>
+                                    <li class="f_{if isset($fieldInfo["display_name"])}{$fieldInfo["display_name"]}{else}{$field}{/if}">
+                                        {block name="actions"}
                                         <div class="buttons-fixed">
                                             {foreach from=$ns.actions item=action name=action}
-                                                <button class="action-btn {$action}-btn f_{$action}_btn"
-                                                        data-im-id="{$itemDto->getId()}">
-                                                    <i class="large material-icons">{if $action == "play" }play_arrow{elseif $action == "reject"}cancel{elseif $action == "delete"}delete{elseif $action == "edit"}edit{elseif $action == "approve"}check_circle{elseif $action == "tracks"}music_note{elseif $action == "events"}event{else}visibility{/if}</i> {$action}
+                                                <button class="action-btn {$action}-btn f_{$action}_btn" data-im-id="{$itemDto->getId()}">
+                                                    <i class="large material-icons">{if $action == "play" }play_arrow{elseif $action == "reject"}cancel{elseif $action == "delete"}delete{elseif $action == "edit"}edit{elseif $action == "approve"}check_circle{elseif $action == "tracks"}music_note{elseif $action == "duplicate"}filter_none{elseif $action == "events"}event{else}visibility{/if}</i> {$action}
                                                 </button>
                                             {/foreach}
                                         </div>
+                                        {/block}
                                         <div class="buttons-tmp">
                                             {foreach from=$ns.actions item=action name=action}
                                                 <button class="action-btn {$action}-btn">
-                                                    <i class="large material-icons">{if $action == "play" }play_arrow{elseif $action == "reject"}cancel{elseif $action == "delete"}delete{elseif $action == "edit"}edit{elseif $action == "approve"}check_circle{elseif $action == "tracks"}music_note{elseif $action == "events"}event{else}visibility{/if}</i> {$action}
+                                                    <i class="large material-icons">{if $action == "play" }play_arrow{elseif $action == "reject"}cancel{elseif $action == "delete"}delete{elseif $action == "edit"}edit{elseif $action == "approve"}check_circle{elseif $action == "tracks"}music_note{elseif $action == "duplicate"}filter_none{elseif $action == "events"}event{else}visibility{/if}</i> {$action}
                                                 </button>
                                             {/foreach}
                                         </div>

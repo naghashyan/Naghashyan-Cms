@@ -23,10 +23,12 @@ namespace ngs\cms\actions {
      * main service
      */
     public final function service() {
+      $this->loggerActionStart([]);
       $this->beforeCmsBulkService();
       $result = $this->cmsBulkService();
       $this->afterCmsBulkService($result);
       $this->addPagingParameters();
+      $this->loggerActionEnd();
     }
 
     /**

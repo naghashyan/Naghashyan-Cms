@@ -18,6 +18,7 @@ let DialogUtility = {
   timeoutId: -1,
   initialize: function () {
     this.dialogElem = $("#im_dialog");
+    this.confirmationMessageContainer = this.dialogElem.find(".f_confirmation-message-container");
     this.dialogElemBox = this.dialogElem.find(".f_im_dialog_box");
     this.titleElem = $("#im_dialogTitle");
     this.contentTextElem = $("#im_dialogContent");
@@ -103,13 +104,15 @@ let DialogUtility = {
    * @param  title:String
    * @param  txt:String
    * @param  options:Object
+   * @param  confirmationMessage:String
+   * @param  errorReason:String
    *
    */
-  showConfirmDialog: function (title, txt, options) {
+  showConfirmDialog: function (title, txt, options, confirmationMessage = null, errorReason = null) {
     if(!options){
       options = {overlay: true};
     }
-    return this._showDialog(title, txt, "confirm", options);
+    return this._showDialog(title, txt, "confirm", options, confirmationMessage, errorReason);
   },
   /**
    * Method for showing Noty notifications
@@ -118,9 +121,11 @@ let DialogUtility = {
    * @param  txt:String
    * @param  type:String
    * @param  options:Object
+   * @param  confirmationMessage:String
+   * @param  errorReason:String
    *
    */
-  _showDialog: function (title, txt, type, options) {
+  _showDialog: function (title, txt, type, options, confirmationMessage = null, errorReason = null) {
     if(this.openStatus){
       this.closeDialog();
     }
@@ -146,6 +151,22 @@ let DialogUtility = {
     this.cancelBtn.val(this._options.cancelBtnText);
     this.dialogElem.removeClass(this._options.closeAnimation);
     this.dialogElem.addClass(this._options.openAnimation);
+
+    if(confirmationMessage) {
+        this.confirmationMessageContainer.find('.f_confirmation-message').val("").removeClass("error");
+        this.confirmationMessageContainer.find('.f_confirmation-required-text').text(confirmationMessage);
+        this.confirmationMessageContainer.show();
+    }
+    else {
+        this.confirmationMessageContainer.hide();
+    }
+    if(errorReason) {
+        this.confirmationMessageContainer.find('.f_error-reason').text(errorReason);
+    }
+    else {
+        this.confirmationMessageContainer.find('.f_error-reason').text('');
+    }
+
     return new Promise(function (resolve, reject) {
       document.getElementById("im_dialogOverlay").onclick = function () {
         console.log("click");
@@ -168,13 +189,34 @@ let DialogUtility = {
 
       }.bind(this));
       this.okBtn.unbind("click");
-      this.okBtn.click(function () {
-        this.closeDialog();
-        resolve(true);
-      }.bind(this));
+      if(confirmationMessage) {
+          this.okBtn.click(function () {
+              if(this.validateConfirmationMessage(confirmationMessage)) {
+                  this.closeDialog();
+                  resolve(this.confirmationMessageContainer.find('.f_confirmation-message').val().trim());
+              }
+          }.bind(this));
+      }
+      else {
+          this.okBtn.click(function () {
+              this.closeDialog();
+              resolve(true);
+          }.bind(this));
+      }
+
     }.bind(this));
 
   },
+
+  validateConfirmationMessage: function(message) {
+    if(this.confirmationMessageContainer.find('.f_confirmation-message').val().trim() !== message.trim()) {
+        this.confirmationMessageContainer.find('.f_confirmation-message').addClass("error");
+      return false;
+    }
+      this.confirmationMessageContainer.find('.f_confirmation-message').removeClass("error");
+    return true;
+  },
+
   openCustomModal: function (options) {
     if(this.openStatus){
       this.closeDialog(true);

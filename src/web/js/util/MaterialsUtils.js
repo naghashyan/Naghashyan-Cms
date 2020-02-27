@@ -1,4 +1,5 @@
 import MaterialDatetimePicker from '../lib/material-datetime-picker.min.js';
+import M from '../lib/materialize.min.js';
 
 let MaterialsUtils = {
   modalInstance: null,
@@ -7,7 +8,7 @@ let MaterialsUtils = {
     if(M.updateTextFields){
       M.updateTextFields();
     }
-    let mTextAreas = $(".materialize-textarea");
+    let mTextAreas = document.querySelectorAll(".materialize-textarea");
     if(mTextAreas.length > 0){
       M.textareaAutoResize(mTextAreas);
     }
@@ -15,10 +16,9 @@ let MaterialsUtils = {
     this.setTimeToPickers(container);
   },
   setTimeToPickers: function (container) {
-    let datePickerElems = $('#' + container + ' .datepicker');
+    let datePickerElems = document.querySelectorAll('#' + container + ' .datepicker');
     if(datePickerElems.length > 0){
-      datePickerElems.datepicker({
-        container: document.getElementById('modalPiker'),
+      let datePickerInstances = M.Datepicker.init(datePickerElems, {
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 220, // Creates a dropdown of 15 years to control year,
         yearRange: 60,
@@ -30,9 +30,9 @@ let MaterialsUtils = {
       });
     }
 
-    let timepickerElems = $('#' + container + ' .timepicker');
+    let timepickerElems = document.querySelectorAll('#' + container + ' .timepicker');
     if(timepickerElems.length > 0){
-      timepickerElems.timepicker({
+      let timepickerInstances = M.Timepicker.init(timepickerElems, {
         default: 'now',
         twelveHour: false, // change to 12 hour AM/PM clock from 24 hour
         donetext: 'OK',
@@ -41,9 +41,15 @@ let MaterialsUtils = {
         vibrate: true
       });
     }
-    var datatimepickerElems = $('#' + container + ' .datetimepicker');
+    var datatimepickerElems = document.querySelectorAll('#' + container + ' .datetimepicker');
     if(datatimepickerElems.length > 0){
       const picker = new MaterialDatetimePicker()
+        .on('open', function() {
+            $('body').addClass("no-scroll");
+        })
+        .on('close', function() {
+            $('body').removeClass("no-scroll");
+        })
         .on('submit', function (val) {
           this.el.value = val.format('D MMMM YYYY HH:mm:SS');
         });
@@ -78,6 +84,13 @@ let MaterialsUtils = {
   getActiveModalInstance: function () {
     return this.modalInstance;
   },
+  showErrorDialog: function (msg) {
+    M.toast({html: msg, displayLength: 2500, classes: 'ngs-error-toast'})
+  },
+
+  showSuccessDialog: function (msg) {
+    M.toast({html: msg, displayLength: 2500, classes: 'ngs-success-toast'})
+  },
   confirmDialog: function (title = '') {
     if(title === ''){
       title = 'Are you sure?';
@@ -89,8 +102,8 @@ let MaterialsUtils = {
         reject();
       };
       let okHandler = function () {
-        M.Toast.dismissAll();
         resolve();
+        M.Toast.dismissAll();
       };
       let toastContent = `<div><span>${title}</span>
                         <button class="btn-flat toast-action red-text f_btn" data-im-type="yes">Yes</button>

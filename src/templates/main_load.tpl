@@ -7,6 +7,9 @@
             <a id="showHideMenu" href="javascript:void(0);"><i class="material-icons">menu</i></a>
           </li>
           <li class="content-box">
+              <a href="javascript:void(0);" id="showSearch" class="show-search-btn">
+                  <i class="material-icons">search</i>
+              </a>
               <div class="search-inner-box">
                   <form id="glbSearch">
                       <div class="search-inner-box">
@@ -23,12 +26,7 @@
         {/block}
         {block name="cms-main-header-page-actions"}
           <li class="search-box">
-
-            <a href="javascript:void(0);" id="showSearch" class="show-search-btn">
-              <i class="material-icons">search</i>
-            </a>
-
-              <a class="btn waves-effect waves-light green" href="javascript:void(0);" id="addItem">
+              <a class="btn waves-effect waves-light green" href="javascript:void(0);" id="addItem" title="ADD NEW {$ns.sectionName|upper}">
                   <i class="material-icons">add</i> ADD NEW {$ns.sectionName|upper}
               </a>
           </li>

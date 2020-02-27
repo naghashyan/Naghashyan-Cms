@@ -34,6 +34,7 @@ export default class AbstractListLoad extends AbstractLoad {
     this.initSorting();
     this.initBulkUpdate();
     this.initFilters();
+    this.initExport();
   }
 
   initSearchBox() {
@@ -47,7 +48,7 @@ export default class AbstractListLoad extends AbstractLoad {
 
 
   onError(params) {
-    DialogUtility.showErrorDialog(params.msg);
+    MaterialsUtils.showErrorDialog(params.msg);
   }
 
   initEditItem() {
@@ -62,23 +63,26 @@ export default class AbstractListLoad extends AbstractLoad {
   initRemoveItem() {
     $('#' + this.getContainer() + ' .f_delete_btn').on("click", function (evt) {
       evt.stopPropagation();
-      DialogUtility.showConfirmDialog("Delete Confirmation", "Do you want to remove this item ? This item can be used in other places.").then(function () {
+      MaterialsUtils.confirmDialog("Do you want to remove this item ? This item can be used in other places.").then(function (confirmationMessage) {
         var elem = $(evt.target).closest(".f_delete_btn");
         var itemId = elem.attr('data-im-id');
+        NGS.action(this.args().deleteAction, {
+          itemId: itemId,
+          confirmationMessage: confirmationMessage
+        }, function (success) {
 
-        var listFilterParams = PageManager.getListFilteringParams();
-        var additionalParams = this.getAdditionalParams();
-        if(additionalParams){
-          for (var i in additionalParams) {
-            if(additionalParams.hasOwnProperty(i)){
-              listFilterParams[i] = additionalParams[i];
-            }
+        }, function (error) {
+          if(error.params.confirmation_required){
+            DialogUtility.showConfirmDialog("Delete Confirmation", "Do you want to remove this item ? This item can be used in other places.", null, error.params.confirmation_text, error.params.error_reason).then(function (confirmationMessage) {
+              //null, this.args().deleteConfirmationMessage
+              NGS.action(this.args().deleteAction, {itemId: itemId, confirmationMessage: confirmationMessage});
+            }.bind(this)).catch(function (error) {
+              console.log("canceled");
+            });
+            return false;
           }
-        }
-        listFilterParams.page = +$("#pageBox").find(".waves-effect.active a").html();
-
-        NGS.action(this.args().deleteAction, {itemId: itemId, listFilterParams: listFilterParams});
-      }.bind(this)).catch(function () {
+        }.bind(this));
+      }.bind(this)).catch(function (error) {
         console.log("canceled");
       });
     }.bind(this));
@@ -187,11 +191,86 @@ export default class AbstractListLoad extends AbstractLoad {
 
   initFilters() {
     MaterialsUtils.initMaterialElements('cmsFilterBox');
-    $("#filterBtn").click(function () {
-      let params = $('#cmsFilterBox').serializeObject();
-      NGS.load(this.args().mainLoad, {filterParams: params});
+    const filterForm = document.getElementById('cmsFilterBox');
+    if(!filterForm){
+      return;
+    }
+    filterForm.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      let formData = new FormData(filterForm);
+      if(formData === false){
+        return false;
+      }
+      let data = {};
+      if(this.args().parentId){
+        data.parentId = this.args().parentId;
+        formData.append('parentId', this.args().parentId);
+      }
+
+      formData = this._mergeWithPageParams(formData);
+      data.filterParams = this._getFilters(formData);
+      NGS.load(this.args().mainLoad, data);
       return false;
-    }.bind(this));
+    });
+  }
+
+  initExport() {
+    const exportBtn = document.getElementById('exportBtn');
+    const filterForm = document.getElementById('cmsFilterBox');
+    if(!exportBtn){
+      return;
+    }
+    exportBtn.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      let formData = new FormData(filterForm);
+      if( formData === false ) {
+        return false;
+      }
+
+      if(this.args().parentId) {
+        formData.append('parentId', this.args().parentId);
+      }
+
+      formData = this._mergeWithPageParams(formData);
+      if(!this.args().exportLoad) {
+        alert("no export load created!");
+        return false;
+      }
+      NGS.load(this.args().exportLoad, {filterParams: this._getFilters(formData)});
+      document.getElementById('ajax_loader').addClass('is_hidden');
+      return false;
+    });
+  }
+
+  /**
+   *
+   * @param params FormData
+   * @returns {*}
+   */
+  _mergeWithPageParams(params) {
+    let listingParams = PageManager.getGlobalParams();
+    for (let i in listingParams) {
+      if(listingParams.hasOwnProperty(i) && !params[i]){
+        params.set('pageParams[' + i + ']', listingParams[i]);
+      }
+    }
+    return params;
+  }
+
+  /**
+   * Returns formdata keys and values as object
+   *
+   * @param formData
+   * @private
+   */
+  _getFilters(formData) {
+
+    let obj = {};
+    for (let pair of formData.entries()) {
+      obj[pair[0]] = pair[1];
+    }
+
+    return obj;
   }
 
   getFilterParams() {

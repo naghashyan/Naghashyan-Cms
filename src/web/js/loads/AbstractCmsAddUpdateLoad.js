@@ -48,6 +48,7 @@ export default class AbstractCmsAddUpdateLoad extends AbstractLoad {
     this.doSaveItem();
     this.afterCmsLoad();
     this.hideHeaderAddButton();
+    this.ngsImageUpload();
   }
 
   modifyParentRedirect() {
@@ -78,7 +79,11 @@ export default class AbstractCmsAddUpdateLoad extends AbstractLoad {
   }
 
   doSaveItem() {
-    document.getElementById("addUpdateForm").onsubmit = function (event) {
+    let submitFormElem = document.getElementById("addUpdateForm");
+    if(!submitFormElem){
+      return;
+    }
+    submitFormElem.onsubmit = function (event) {
       return false;
     };
     document.querySelectorAll("#" + this.getContainer() + " #saveItem").click(event => {
@@ -147,6 +152,26 @@ export default class AbstractCmsAddUpdateLoad extends AbstractLoad {
     let dateTimeStart = dateStart ? moment(dateStart, format) : null;
     let dateTimeEnd = dateEnd ? moment(dateEnd, format) : null;
     return !(dateTimeStart && dateTimeEnd && dateTimeEnd.isBefore(dateTimeStart));
+  }
+
+  ngsImageUpload() {
+    document.querySelectorAll('.f_uploadImage').forEach((fileElem) => {
+      if(fileElem.attr('data-im-preview')){
+        let imagePreviewElem = document.querySelector(fileElem.attr('data-im-preview'));
+        fileElem.addEventListener('change', (event) => {
+          let inputElem = event.currentTarget;
+          if(!inputElem.files || !inputElem.files[0]){
+            return;
+          }
+          let reader = new FileReader();
+          reader.onload = (e) => {
+            this.imageData = e.target.result;
+            imagePreviewElem.attr('src', e.target.result);
+          };
+          reader.readAsDataURL(inputElem.files[0]);
+        })
+      }
+    })
   }
 
   showError(elem, msg) {

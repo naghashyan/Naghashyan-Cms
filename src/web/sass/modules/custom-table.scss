@@ -12,6 +12,7 @@
     .btn {
       display: inline-block;
       vertical-align: middle;
+      margin: 5px 0;
     }
 
   }
@@ -703,10 +704,32 @@
   }
 }
 
-@media screen and (max-width: $phoneWidthLarge) {
+@media screen and (max-width: $tabletWidth) {
   .table-box {
     padding: 0 10px;
+    .table {
+      .table-row-group {
+        .table-row {
+          .buttons-fixed {
+            right: 9px;
+            padding: 8px 12px 7px 12px;
+            margin-top: -8px;
+          }
+
+          li {
+            &.checkbox-cell {
+              width: 100%;
+
+              .checkbox-content {
+                text-align: left;
+              }
+            }
+          }
+        }
+      }
+    }
   }
+
   .table {
     .table-row {
       display: block;
@@ -716,7 +739,6 @@
       &.table-head {
         display: none;
       }
-
       & > li {
         font-size: 14px;
         display: inline-block;

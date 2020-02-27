@@ -59,6 +59,17 @@ namespace ngs\cms\managers {
       return $itemDto;
     }
 
+    /**
+     * this function returns array which informs about delete problems (should has keys confirmation_text, error_reason)
+     * if this function returns null, no delete problem
+     *
+     * @param int $deleteItemId
+     * @return array|null
+     */
+    public function getDeleteProblems(int $deleteItemId):?array {
+        return null;
+    }
+
 
     /**
      * NgsCmsParamsBin $paramsBin

@@ -38,6 +38,13 @@ namespace ngs\cms\actions {
         if (!$itemDto){
           throw new NgsErrorException('Item not found.');
         }
+        $this->loggerActionStart([], NGS()->args()->itemId);
+        $hasDeleteProblem = $manager->getDeleteProblems(NGS()->args()->itemId);
+        if($hasDeleteProblem && (!NGS()->args()->confirmationMessage || NGS()->args()->confirmationMessage !== $hasDeleteProblem['confirmation_text'])) {
+            $errorParams = $hasDeleteProblem;
+            $errorParams['confirmation_required'] = true;
+            throw new NgsErrorException('confirmation message is incorrect!', -1, $errorParams);
+        }
         $manager->deleteItemById($itemId);
       } else{
         throw new NgsErrorException('item id incorrect');
@@ -46,6 +53,7 @@ namespace ngs\cms\actions {
       $this->addPagingParameters();
 
       $this->afterService($itemDto);
+      $this->loggerActionEnd($itemDto);
     }
 
     /**

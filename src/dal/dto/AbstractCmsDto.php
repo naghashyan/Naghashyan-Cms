@@ -22,6 +22,9 @@ namespace ngs\cms\dal\dto {
     public function getMapArray() {
       $result = [];
       foreach ($this->mapArray as $key => $value){
+        if (isset($value['virtual']) && $value['virtual'] === true){
+          continue;
+        }
         $result[$key] = $value['field_name'];
       }
       return $result;

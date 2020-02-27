@@ -5,9 +5,9 @@
         {block name="header_meta"}
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
             <meta name="viewport" content="initial-scale=1.0,width=device-width">
-            <link rel="shortcut icon" type="image/x-icon" href="{ngs cmd=get_static_path}/images/favicon.ico">
-            <link rel="icon" type="image/x-icon" href="{ngs cmd=get_static_path}/images/favicon.ico" sizes="16x16"/>
-            <link rel="apple-touch-icon" href="{ngs cmd=get_static_path}/images/favicon.ico"/>
+            <link rel="shortcut icon" type="image/x-icon" href="{ngs cmd=get_static_path}/favicon.ico">
+            <link rel="icon" type="image/x-icon" href="{ngs cmd=get_static_path}/favicon.ico" sizes="16x16"/>
+            <link rel="apple-touch-icon" href="{ngs cmd=get_static_path}/favicon.ico"/>
             <title>{block name="page_title"}NGS CMS{/block}</title>
         {/block}
         {block name="header_controls"}

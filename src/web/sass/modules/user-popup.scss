@@ -204,6 +204,10 @@
     padding: 20px 30px;
     font-size: 14px;
 
+    .error {
+      border-color: #ff0000;
+    }
+
     .form-button-box {
       margin-right: 10px;
       background-color: #008bdc;

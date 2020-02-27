@@ -10,6 +10,11 @@
         <div class="user-box-content">
             <p id="im_dialogContent"></p>
             <br/><br/>
+            <div class="f_confirmation-message-container">
+                <span class="f_error-reason"></span><br>
+                <label for="confirmationMessage">If you really want to delete item please type word "<span class="f_confirmation-required-text"></span>"</label>
+                <input id="confirmationMessage" type="text" class="f_confirmation-message" value="" />
+            </div>
             <input type="submit" value="OK" class="form-button-box f_im_ok_btn"/>
             <input type="submit" value="Cancel" class="form-button-box f_im_cancel_btn f_im_dialog_close"/>
         </div>
