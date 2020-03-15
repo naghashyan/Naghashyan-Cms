@@ -22,22 +22,22 @@ namespace ngs\cms\loads {
     protected $im_pagesShowed = 9;
 
 
-    public function getLimit() {
+    public function getLimit(): int {
       if (is_numeric(NGS()->args()->limit) && NGS()->args()->limit > 0){
         return NGS()->args()->limit;
       }
       return $this->im_limit;
     }
 
-    public function getOffset() {
+    public function getOffset(): int {
       return $this->getLimit() * ($this->getCurrentPage() - 1);
     }
 
-    public function getPagesShowed() {
+    public function getPagesShowed(): int {
       return $this->im_pagesShowed;
     }
 
-    public function getCurrentPage() {
+    public function getCurrentPage(): int {
       $page = 1;
       if (is_numeric(NGS()->args()->page) && NGS()->args()->page > 1){
         $page = NGS()->args()->page;
@@ -45,12 +45,12 @@ namespace ngs\cms\loads {
       return $page;
     }
 
-    public function initPaging($itemsCount) {
+    public function initPaging(int $itemsCount): void {
       $limit = $this->getLimit();
       $pagesShowed = $this->getPagesShowed();
       $page = $this->getCurrentPage();
       if ($limit < 1){
-        return false;
+        return;
       }
       $pageCount = ceil($itemsCount / $limit);
       $centredPage = ceil($pagesShowed / 2);
@@ -69,14 +69,13 @@ namespace ngs\cms\loads {
           $pEnd = $pageCount;
         }
       }
-      $this->addParam("pageCount", $pageCount);
-      $this->addParam("page", $page);
-      $this->addParam("pStart", $pStart);
-      $this->addParam("pEnd", $pEnd);
-      $this->addParam("limit", $limit);
-      $this->addParam("itemsCount", $itemsCount);
-      $this->addParam("itemsPerPageOptions", array(15, 30, 50, 100));
-      return true;
+      $this->addParam('pageCount', $pageCount);
+      $this->addParam('page', $page);
+      $this->addParam('pStart', $pStart);
+      $this->addParam('pEnd', $pEnd);
+      $this->addParam('limit', $limit);
+      $this->addParam('itemsCount', $itemsCount);
+      $this->addParam('itemsPerPageOptions', [2, 15, 30, 50, 100]);
     }
 
 
@@ -85,14 +84,14 @@ namespace ngs\cms\loads {
     }
 
     public function getCmsPermalink(): string {
-      return "";
+      return '';
     }
 
     public function getRequestGroup() {
-      if (!NGS()->get("REQUEST_GROUP") === null){
-        throw new NgsErrorException("please set in constats REQUEST_GROUP");
+      if (!NGS()->get('REQUEST_GROUP') === null){
+        throw new NgsErrorException('please set in constats REQUEST_GROUP');
       }
-      return NGS()->get("REQUEST_GROUP");
+      return NGS()->get('REQUEST_GROUP');
     }
   }
 

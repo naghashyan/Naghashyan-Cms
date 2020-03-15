@@ -101,6 +101,19 @@ namespace ngs\cms\actions {
 
     }
 
+    protected function addPagingParameters() {
+      $pageParams = [];
+      if(NGS()->args()->pageParams && is_array(NGS()->args()->pageParams)){
+        foreach (NGS()->args()->pageParams as $key => $pageParam){
+          if ($pageParam === 'null'){
+            continue;
+          }
+          $pageParams[$key] = $pageParam;
+        }
+      }
+      $this->addParam('afterActionParams', $pageParams);
+    }
+
     /**
      * returns load which will called after action
      * @return string

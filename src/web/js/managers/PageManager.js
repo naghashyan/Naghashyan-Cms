@@ -5,7 +5,6 @@ let PageManager = {
   },
   getGlobalParams: function () {
     let params = Object.assign({}, this.getPageParams());
-    params.page = 1;
     return params;
   },
 
