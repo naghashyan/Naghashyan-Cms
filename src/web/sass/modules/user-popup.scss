@@ -414,3 +414,106 @@
     }
   }
 }
+
+/*----------------------------*/
+
+
+.vertical-tabs {
+  display: flex;
+  align-items: flex-start;
+
+  .tabs {
+    white-space: normal;
+    overflow: visible;
+    flex: 0 0 40%;
+    max-width: 260px;
+    padding-right: 30px;
+    margin-right: 20px;
+    background: transparent;
+    position: relative;
+    height: auto;
+
+    &:before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 2px;
+      right: 31px;
+      background: $color5;
+    }
+    .tab {
+      width: 100%;
+      text-align: left;
+      display: block;
+
+      a {
+        color: $color4;
+
+        &:focus, &:focus.active {
+          background-color: transparent;
+        }
+        &:hover, &.active {
+          color: $primary-color;
+          background-color: rgba($primary-color, 10%);
+
+          &:focus {
+            background-color: rgba($primary-color, 10%);
+          }
+        }
+        &.error{
+          color: $spec-4;
+
+          &:hover, &.active {
+            background-color: rgba($spec-4, 10%);
+
+            &:focus {
+              background-color: rgba($spec-4, 10%);
+            }
+          }
+        }
+      }
+
+    }
+    .indicator {
+      left: auto !important;
+      right: 30px !important;
+      width: 4px;
+      height: 48px;
+      top: 0;
+      background-color: $primary-color;
+      transition: top ease 0.5s;
+    }
+  }
+  .vertical-tabs-content {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

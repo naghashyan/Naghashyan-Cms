@@ -90,17 +90,18 @@ namespace ngs\cms\dal\dto {
      * @return array
      */
     public function getAddEditFields(string $type): array {
-      $type = $type == 'add' ? $type : 'edit';
+      $type = $type === 'add' ? $type : 'edit';
       $result = [];
       foreach ($this->mapArray as $key => $value){
-        if (isset($value['actions']) && in_array($type, $value['actions'])){
+        if (isset($value['actions']) && in_array($type, $value['actions'], true)){
           $result[$value['field_name']] = [
             'type' => $value['type'],
             'display_name' => $value['display_name'],
             'data_field_name' => $key,
-            'group_name' => isset($value['group_name']) ? $value['group_name'] : $value['display_name'],
-            'default_value' => isset($value['default_value']) ? $value['default_value'] : null,
-            'required' => isset($value['required_in']) && in_array($type, $value['required_in']) ? true : false
+            'tab' => $value['tab'] ?? 'main',
+            'group_name' => $value['group_name'] ?? $value['display_name'],
+            'default_value' => $value['default_value'] ?? null,
+            'required' => isset($value['required_in']) && in_array($type, $value['required_in'], true)
           ];
         }
 

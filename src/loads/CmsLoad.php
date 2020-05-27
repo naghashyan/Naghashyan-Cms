@@ -14,127 +14,113 @@
 namespace ngs\cms\loads {
 
 
-    abstract class CmsLoad extends AbstractCmsLoad
-    {
+  abstract class CmsLoad extends AbstractCmsLoad {
 
-        public function initialize()
-        {
-            parent::initialize();
-            $this->addParentParam('activeMenu', $this->getActiveMenu());
-        }
+    public function initialize() {
+      parent::initialize();
+      $this->addParentParam('activeMenu', $this->getActiveMenu());
+    }
 
-        public function getTemplate()
-        {
-            return NGS()->getTemplateDir('ngs-cms') . '/main_load.tpl';
-        }
+    public function getTemplate() {
+      return NGS()->getTemplateDir('ngs-cms') . '/main_load.tpl';
+    }
 
-        protected function getActiveMenu()
-        {
-            return ['menu' => '', 'submenu' => ''];
-        }
+    protected function getActiveMenu() {
+      return ['menu' => '', 'submenu' => ''];
+    }
 
 
-        public function getManager()
-        {
-            return null;
-        }
+    public function getManager() {
+      return null;
+    }
 
 
-        /**
-         * returns js list page load
-         * @return string
-         */
-        public function getListLoad(): string
-        {
-            return 'ngs.cms.loads.cms_list';
-        }
+    /**
+     * returns js list page load
+     * @return string
+     */
+    public function getListLoad(): string {
+      return 'ngs.cms.loads.cms_list';
+    }
 
-        /**
-         * returns js add page load
-         * @return string
-         */
-        public function getAddLoad(): string
-        {
-            return '';
-        }
+    /**
+     * returns js add page load
+     * @return string
+     */
+    public function getAddLoad(): string {
+      return '';
+    }
 
-        /**
-         * returns js main page load
-         * @return string
-         */
-        public function getMainLoad(): string
-        {
-            return '';
-        }
+    /**
+     * returns js main page load
+     * @return string
+     */
+    public function getMainLoad(): string {
+      return '';
+    }
 
-        /**
-         * returns js export load
-         * @return string
-         */
-        public function getExportLoad(): string
-        {
-            return '';
-        }
+    /**
+     * returns js export load
+     * @return string
+     */
+    public function getExportLoad(): string {
+      return '';
+    }
 
-        /**
-         * returns js edit page load
-         * @return string
-         */
-        public function getEditLoad(): string
-        {
-            return '';
-        }
+    /**
+     * returns js edit page load
+     * @return string
+     */
+    public function getEditLoad(): string {
+      return '';
+    }
 
-        /**
-         * returns js delete item action
-         * @return string
-         */
-        public function getDeleteAction(): string
-        {
-            return '';
-        }
+    /**
+     * returns js delete item action
+     * @return string
+     */
+    public function getDeleteAction(): string {
+      return '';
+    }
 
-        public function getDefaultLoads()
-        {
-            if ($this->getManager() === null) {
-                return [];
-            }
-            $loads = [];
-            $loads['items_content']['args'] = ['manager' => $this->getManager(), 'listLoad' => $this->getListLoad(),
-                'mainLoad' => $this->getMainLoad(), 'exportLoad' => $this->getExportLoad(), 'addLoad' => $this->getAddLoad(),
-                'editLoad' => $this->getEditLoad(), 'deleteAction' => $this->getDeleteAction(), 'activeMenu' => $this->getActiveMenu()];
-            $loads['items_content']['action'] = $this->getListLoad();
+    public function getDefaultLoads() {
+      if ($this->getManager() === null){
+        return [];
+      }
+      $loads = [];
+      $loads['items_content']['args'] = ['manager' => $this->getManager(), 'listLoad' => $this->getListLoad(),
+        'mainLoad' => $this->getMainLoad(), 'exportLoad' => $this->getExportLoad(), 'addLoad' => $this->getAddLoad(),
+        'editLoad' => $this->getEditLoad(), 'deleteAction' => $this->getDeleteAction(), 'activeMenu' => $this->getActiveMenu()];
+      $loads['items_content']['action'] = $this->getListLoad();
 
-            return $loads;
-        }
+      return $loads;
+    }
 
 
-        /**
-         * @return string
-         */
-        public abstract function getSectionName(): string;
+    /**
+     * @return string
+     */
+    public abstract function getSectionName(): string;
 
-        /**
-         * @return array
-         */
-        public abstract function getParentSections(): array;
+    /**
+     * @return array
+     */
+    public abstract function getParentSections(): array;
 
-        public final function load()
-        {
-            $this->addParam('parentSections', $this->getParentSections());
-            $this->addParam('sectionName', $this->getSectionName());
-            $this->addJsonParam('addLoad', $this->getAddLoad());
-            $this->addJsonParam('mainLoad', $this->getMainLoad());
-            $this->addJsonParam('exportLoad', $this->getExportLoad());
+    public final function load() {
+      $this->addParam('parentSections', $this->getParentSections());
+      $this->addParam('sectionName', $this->getSectionName());
+      $this->addJsonParam('addLoad', $this->getAddLoad());
+      $this->addJsonParam('mainLoad', $this->getMainLoad());
+      $this->addJsonParam('exportLoad', $this->getExportLoad());
 
-            $this->afterCmsLoad();
-        }
+      $this->afterCmsLoad();
+    }
 
-        public function afterCmsLoad()
-        {
-
-        }
+    public function afterCmsLoad() {
 
     }
+
+  }
 
 }

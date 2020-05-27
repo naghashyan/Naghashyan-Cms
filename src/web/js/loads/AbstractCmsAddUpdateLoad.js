@@ -89,7 +89,16 @@ export default class AbstractCmsAddUpdateLoad extends AbstractLoad {
     document.querySelectorAll("#" + this.getContainer() + " #saveItem").click(event => {
       let formElem = document.getElementById('addUpdateForm');
       let validationStatus = NgsFormValidator(formElem);
+      formElem.querySelectorAll('.f_tabTitle').removeClass('error');
       if(!validationStatus){
+        let errorTabIndexes = [];
+        formElem.querySelectorAll('.f_cms_tab-container').forEach((element, index) => {
+          if(element.querySelector('.invalid')){
+            errorTabIndexes[index] = element.id;
+            document.getElementById(element.id + '_title').addClass('error');
+          }
+        });
+        MaterialsUtils.showVerticalTabsError(errorTabIndexes, formElem.querySelector('.f_cms_vertical-tabs'));
         return false;
       }
       let formData = new FormData(formElem);

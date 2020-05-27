@@ -320,13 +320,21 @@ namespace ngs\cms\dal\binparams {
       }
       $whereConditionSql = 'WHERE ';
       $operator = ' ';
-      foreach ($this->whereCondition as $key => $value){
-        $_value = $value['value'];
-        if ($_value && is_string($_value) && !in_array($value['comparison'], ['in'])){
-          $_value = ' \'' . $_value . '\' ';
+      foreach ($this->whereCondition as $group => $value){
+        $whereConditionGeoupOperator = '(';
+        foreach ($value as $key => $queryData){
+
+          if ($key > 0){
+            $whereConditionGeoupOperator = '';
+          }
+          $_value = $queryData['value'];
+          if ($_value && is_string($_value) && !in_array($queryData['comparison'], ['in'])){
+            $_value = ' \'' . $_value . '\' ';
+          }
+          $whereConditionSql .= $operator . $whereConditionGeoupOperator . $queryData['field'] . ' ' . $queryData['comparison'] . $_value;
+          $operator = ' ' . $queryData['operator'] . ' ';
         }
-        $whereConditionSql .= $operator . $value['field'].' ' . $value['comparison'] . $_value;
-        $operator = ' ' . $value['operator'] . ' ';
+        $whereConditionSql .= ')';
       }
       return $whereConditionSql;
     }
@@ -345,7 +353,7 @@ namespace ngs\cms\dal\binparams {
      * @param string $operator acceptable Operators and, or, not
      * @param string $comparison acceptable Comparisons =, <>, !=, >, >=, <, <=, is null, is not null,like, exists, in, not
      */
-    public function setWhereCondition(array $fieldArr, string $value, string $operator, string $comparison): void {
+    public function setWhereCondition(array $fieldArr, string $value, string $operator, string $comparison, string $group = '00'): void {
       if (!isset($this->defaultOperators[strtolower($operator)])){
         throw new DebugException('please use and, or, not Operators');
       }
@@ -360,21 +368,21 @@ namespace ngs\cms\dal\binparams {
         throw new DebugException($fieldArr['field'] . 'fieald not exist in dto');
       }
       $field = '`' . $fieldArr['dto']->getTableName() . '`.' . '`' . $fieldArr['field'] . '`';
-      $this->whereCondition[] = ['field' => $field, 'value' => $value, 'operator' => $operator, 'comparison' => $comparison];
+      $this->whereCondition[$group][] = ['field' => $field, 'value' => $value, 'operator' => $operator, 'comparison' => $comparison];
     }
 
     /**
      * @param string $whereCondition
      */
-    public function setWhereOrCondition(array $fieldArr, string $value, string $comparison = '='): void {
-      $this->setWhereCondition($fieldArr, $value, 'or', $comparison);
+    public function setWhereOrCondition(array $fieldArr, string $value, string $comparison = '=', string $group = '00'): void {
+      $this->setWhereCondition($fieldArr, $value, 'or', $comparison, $group);
     }
 
     /**
      * @param string $key
      */
-    public function setWhereAndCondition(array $fieldArr, string $value, string $comparison = '='): void {
-      $this->setWhereCondition($fieldArr, $value, 'and', $comparison);
+    public function setWhereAndCondition(array $fieldArr, string $value, string $comparison = '=', string $group = '00'): void {
+      $this->setWhereCondition($fieldArr, $value, 'and', $comparison, $group);
     }
 
   }

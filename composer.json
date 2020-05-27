@@ -1,7 +1,7 @@
 {
   "name": "naghashyan/ngs-php-cms",
   "type": "library",
-  "description": "The Naghashyan PHP framework",
+  "description": "The Naghashyan CMS",
   "keywords": [
     "framework",
     "csm"
@@ -15,7 +15,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3.0",
+    "php": ">=7.4.0",
     "naghashyan/ngs-php-framework": "*"
   },
   "autoload": {

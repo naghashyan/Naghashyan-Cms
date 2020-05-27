@@ -6,7 +6,7 @@
  * @author Levon Naghashyan
  * @site   https://naghashyan.com
  * @email  levon@naghashyan.com
- * @year   2012-2019
+ * @year   2012-2020
  * @package ngs.cms.loads
  * @version 2.0.0
  * @copyright Naghashyan Solutions
@@ -22,9 +22,9 @@ namespace ngs\cms\loads {
     /**
      * @var array
      */
-    private $addEditFieldsMethods = [];
-    const NGS_CMS_EDIT_ACTION_TYPE_POPUP = 'popup';
-    const NGS_CMS_EDIT_ACTION_TYPE_INPLACE = 'inplace';
+    private array $addEditFieldsMethods = [];
+    public const NGS_CMS_EDIT_ACTION_TYPE_POPUP = 'popup';
+    public const NGS_CMS_EDIT_ACTION_TYPE_INPLACE = 'inplace';
 
     /**
      * @param array $visibleFieldsMethods
@@ -39,7 +39,7 @@ namespace ngs\cms\loads {
     public function getAddEditFieldsMethods(): array {
       $result = [];
       foreach ($this->addEditFieldsMethods as $key => $addEditFieldMethod){
-        $result[$addEditFieldMethod['group_name']][$key] = $addEditFieldMethod;
+        $result[$addEditFieldMethod['tab']][$addEditFieldMethod['group_name']][$key] = $addEditFieldMethod;
       }
       return $result;
     }
@@ -56,21 +56,21 @@ namespace ngs\cms\loads {
       return '';
     }
 
-    public abstract function getManager();
+    abstract public function getManager();
 
-    public abstract function getItemId(): int;
+    abstract public function getItemId(): int;
 
     /**
      * returns js cancel load page
      * @return string
      */
-    public abstract function getCancelLoad(): string;
+    abstract public function getCancelLoad(): string;
 
     /**
      * returns js save item action
      * @return string
      */
-    public abstract function getSaveAction(): string;
+    abstract public function getSaveAction(): string;
 
     /**
      * @param $cmsDto
@@ -96,11 +96,13 @@ namespace ngs\cms\loads {
         $fieldsType = 'edit';
       }
       $this->initializeAddEditFieldsMethods($manager->createDto(), $fieldsType);
+      $visibleFields = $this->getAddEditFieldsMethods();
+      $this->addParam('ngsTabs', array_keys($visibleFields));
       $this->addParam('visibleFields', $this->getAddEditFieldsMethods());
       $this->addJsonParam('cancelLoad', $this->getCancelLoad());
       $this->addJsonParam('saveAction', $this->getSaveAction());
       $editActionType = $this->getEditActionType();
-      if ($editActionType == self::NGS_CMS_EDIT_ACTION_TYPE_INPLACE){
+      if ($editActionType === self::NGS_CMS_EDIT_ACTION_TYPE_INPLACE){
         $editActionType = self::NGS_CMS_EDIT_ACTION_TYPE_INPLACE;
       } else{
         $editActionType = self::NGS_CMS_EDIT_ACTION_TYPE_POPUP;

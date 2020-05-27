@@ -14,6 +14,7 @@ let MaterialsUtils = {
     }
     M.FormSelect.init(document.querySelectorAll('select'), {gago: null});
     this.setTimeToPickers(container);
+    this.initVerticalTabs(container);
   },
   setTimeToPickers: function (container) {
     let datePickerElems = document.querySelectorAll('#' + container + ' .datepicker');
@@ -44,11 +45,11 @@ let MaterialsUtils = {
     var datatimepickerElems = document.querySelectorAll('#' + container + ' .datetimepicker');
     if(datatimepickerElems.length > 0){
       const picker = new MaterialDatetimePicker()
-        .on('open', function() {
-            $('body').addClass("no-scroll");
+        .on('open', function () {
+          $('body').addClass("no-scroll");
         })
-        .on('close', function() {
-            $('body').removeClass("no-scroll");
+        .on('close', function () {
+          $('body').removeClass("no-scroll");
         })
         .on('submit', function (val) {
           this.el.value = val.format('D MMMM YYYY HH:mm:SS');
@@ -80,6 +81,28 @@ let MaterialsUtils = {
       M.Toast.dismissAll();
     }.bind(this);
     return this.modalInstance;
+  },
+  initVerticalTabs: function (container) {
+    if(!document.querySelector('#' + container + ' .f_cms_vertical-tabs')){
+      return;
+    }
+    let instance = M.Tabs.init(document.querySelectorAll('#' + container + ' .f_cms_vertical-tabs'), {
+      onShow: function () {
+        let containerElement = this.$activeTabLink[0].closest('.f_cms_vertical-tabs');
+        let activeElement = this.$activeTabLink[0];
+        let indicator = containerElement.querySelector('.indicator');
+        indicator.style.top = (activeElement.getBoundingClientRect().top - containerElement.getBoundingClientRect().top) + 'px';
+      }
+    });
+  },
+  showVerticalTabsError: function (tabsArr, tabsElement) {
+    let instance = M.Tabs.getInstance(tabsElement);
+    let currentIndex = instance.index;
+    if(tabsArr[currentIndex]){
+      return;
+    }
+    let tabsIds = Object.keys(tabsArr);
+    instance.select(tabsArr[tabsIds[0]]);
   },
   getActiveModalInstance: function () {
     return this.modalInstance;
