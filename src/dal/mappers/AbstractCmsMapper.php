@@ -33,14 +33,14 @@ namespace ngs\cms\dal\mappers {
     /**
      * @see AbstractMysqlMapper::getPKFieldName()
      */
-    public function getPKFieldName() {
-      return "id";
+    public function getPKFieldName(): string {
+      return 'id';
     }
 
     /**
      * @see AbstractMysqlMapper::getTableName()
      */
-    public function getTableName() {
+    public function getTableName(): string {
       return $this->tableName;
     }
 
@@ -48,11 +48,11 @@ namespace ngs\cms\dal\mappers {
     /**
      * @var string
      */
-    private $DELETE_ITEM_BY_ID = "DELETE FROM %s WHERE `id`=:itemId";
+    private $DELETE_ITEM_BY_ID = 'DELETE FROM %s WHERE `id`=:itemId';
 
     public function deleteItemById($itemId) {
       $sqlQuery = sprintf($this->DELETE_ITEM_BY_ID, $this->getTableName());
-      $res = $this->executeUpdate($sqlQuery, ["itemId" => $itemId]);
+      $res = $this->executeUpdate($sqlQuery, ['itemId' => $itemId]);
       if (is_numeric($res)){
         return true;
       }
@@ -62,7 +62,7 @@ namespace ngs\cms\dal\mappers {
     /**
      * @var string
      */
-    private $GET_LIST = "SELECT %s.* FROM %s %s %s %s LIMIT :offset, :limit";
+    private $GET_LIST = 'SELECT %s.* FROM %s %s %s %s LIMIT :offset, :limit';
 
     /**
      * @param NgsCmsParamsBin $paramsBin
@@ -75,8 +75,8 @@ namespace ngs\cms\dal\mappers {
 
       $orderBySql = $paramsBin->getOrderBy();
 
-      $sortBySql = $this->getTableName() . "." . $paramsBin->getSortBy();
-      $sortBySql = " ORDER BY " . $sortBySql . ' ' . $orderBySql;
+      $sortBySql = $this->getTableName() . '.' . $paramsBin->getSortBy();
+      $sortBySql = ' ORDER BY ' . $sortBySql . ' ' . $orderBySql;
       $sqlQuery = sprintf($this->GET_LIST, $this->getTableName(), $this->getTableName(),
         $paramsBin->getJoinCondition(), $paramsBin->getWhereCondition(), $sortBySql);
       return $this->fetchRows($sqlQuery, $bindArray);
@@ -85,7 +85,7 @@ namespace ngs\cms\dal\mappers {
     /**
      * @var string
      */
-    private $GET_ITEM_BY_ID = "SELECT * FROM %s WHERE `id` = :itemId";
+    private $GET_ITEM_BY_ID = 'SELECT * FROM %s WHERE `id` = :itemId';
 
     /**
      * @param string $itemId
@@ -101,7 +101,7 @@ namespace ngs\cms\dal\mappers {
     /**
      * @var string
      */
-    private $GET_COUNT = "SELECT COUNT(*) AS count FROM %s %s %s";
+    private $GET_COUNT = 'SELECT COUNT(*) AS count FROM %s %s %s';
 
     /**
      * @param NgsCmsParamsBin $paramsBin

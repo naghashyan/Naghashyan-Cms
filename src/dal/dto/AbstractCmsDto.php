@@ -19,7 +19,7 @@ namespace ngs\cms\dal\dto {
     private $_cmsParentObject = null;
     protected $mapArray = ['id' => ['type' => 'number', 'display_name' => 'ID', 'field_name' => 'id', 'visible' => true, 'actions' => []]];
 
-    public function getMapArray() {
+    public function getMapArray(): array {
       $result = [];
       foreach ($this->mapArray as $key => $value){
         if (isset($value['virtual']) && $value['virtual'] === true){

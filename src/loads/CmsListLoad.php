@@ -13,7 +13,6 @@
 
 namespace ngs\cms\loads {
 
-  use ngs\cms\loads\AbstractCmsListLoad;
   use ngs\cms\managers\AbstractCmsManager;
 
   class CmsListLoad extends AbstractCmsListLoad {
@@ -110,7 +109,7 @@ namespace ngs\cms\loads {
      * @return string
      */
     public function getTemplate(): string {
-      return NGS()->getTemplateDir('ngs-cms') . "/list.tpl";
+      return NGS()->getTemplateDir('ngs-cms') . '/list.tpl';
     }
 
   }

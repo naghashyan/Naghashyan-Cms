@@ -21,7 +21,7 @@ namespace ngs\cms\loads {
       $this->addParentParam('activeMenu', $this->getActiveMenu());
     }
 
-    public function getTemplate() {
+    public function getTemplate(): string {
       return NGS()->getTemplateDir('ngs-cms') . '/main_load.tpl';
     }
 
@@ -83,7 +83,7 @@ namespace ngs\cms\loads {
       return '';
     }
 
-    public function getDefaultLoads() {
+    public function getDefaultLoads(): array {
       if ($this->getManager() === null){
         return [];
       }
